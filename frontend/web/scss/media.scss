@@ -1,0 +1,222 @@
+@import "vars";
+
+/*==========  Desktop First  ==========*/
+
+/* Large Devices, Wide Screens */
+@media only screen and (max-width : 1200px){
+
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (max-width : 992px)	{
+    .services {
+        height: auto !important;
+        padding-bottom: 100px;
+        .services__item {
+            margin: 0 auto;
+        }
+    }
+    .view {
+        height: auto !important;
+        .view__column {
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+    }
+    .hamburger {
+        margin-top: -30px;
+    }
+    .hamburger-box {
+        display: inherit !important;
+    }
+    .hamburger-box{
+        width: 34px
+    }
+    .hamburger-inner, .hamburger-inner::after, .hamburger-inner::before {
+        border-radius: 0;
+        background-color: #fff;
+        height: 2px;
+        width: 34px;
+    }
+    // Mmenu style
+    html.mm-opened {
+        overflow-y: scroll !important;
+        body{
+            background-color: #151515;
+        }
+    .mm-panels > .mm-panel.mm-hasnavbar {
+        right: -18px;
+    }
+    .mm-menu.mm-theme-black {
+        background-color: #111;
+    }
+    .mm-listview>li:not(.mm-divider):after {
+        display: none;
+    }
+    .mm-panels>.mm-panel>.mm-listview:first-child, .mm-panels>.mm-panel>.mm-navbar+.mm-listview {
+        margin-top: 0;
+    }
+    .mm-menu.mm-theme-black .mm-listview > li.mm-selected > a:not(.mm-next), .mm-menu.mm-theme-black .mm-listview > li.mm-selected > span {
+        background-color: transparent;
+        color: $accent;
+    }
+    .mm-panels>.mm-panel:after, .mm-panels>.mm-panel:before {
+        height: 0;
+    }
+    .mm-listview>li>a {
+        padding-left: 14%;
+        padding-right: 14%;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        transition: color .25s ease;
+        &:hover {
+            color: $accent;
+        }
+            &::before {
+                color: $accent;
+            }
+        &::before {
+            transition: color .25s ease;
+            content: '\f054';
+            font-family: fontawesome;
+            margin-right: 8px;
+            text-decoration: none;
+            font-size: 12px;
+            color: #fff;
+        }
+    }
+    .mm-listview>li.active {
+        &>a {
+            color: $accent;
+            &::before {
+                color: $accent
+            }
+        }
+    }
+    }
+    .hamburger {
+        right: 0;
+        top: 34px;
+        position: absolute;
+    }
+    .mm-navbar {
+        height: auto;
+        border: none;
+        position: relative;
+        .mm-title {
+            padding: 0;
+            img {
+                width: 128px;
+                height: auto;
+                margin: 5px 0 35px;
+            }
+        }
+    }
+    .navbar__list {
+        display: none !important;
+    }
+    .user__profile__container {
+        flex-direction: column;
+        .user__profile__avatar {
+            width: 100px !important;
+            height: 100px !important;
+            margin: 0 auto;
+        }
+        .user__profile__container__info {
+            margin-left: 0 !important;
+        }
+        .user__profile__container__edit, .user__profile__container__report, .user__profile__container__contact {
+            padding: 1em .5em 1em .5em !important;
+            font-size: 12px;
+        }
+    }
+    .user__profile__contacts {
+        .user__profile__contacts__item {
+            font-size: 10px !important;
+            i.fa {
+                font-size: 10px !important;
+            }
+        }
+    }
+    section {
+        &.login__form {
+            width: 100%;
+            .formHeading {
+                margin-top: 0 !important;
+                font-size: 30px;
+            }
+            form.loginForm {
+                margin-top: 70px;
+                input[type=text],
+                input[type=password],
+                input[type=email], textarea {
+                    width: 350px !important;
+                }
+                textarea {
+                    max-width: 400px !important;
+                }
+            }
+        }
+    }
+}
+/* Extra Small Devices, Phones */
+@media only screen and (max-width : 480px){
+    .user__profile__contacts {
+        flex-direction: column;
+        text-align: center;
+        .user__profile__contacts__item {
+            margin-top: 5px;
+        }
+    }
+    section {
+        &.experiense {
+            .experiense__descr {
+                font-size: 13px;
+            }
+        }
+        &.login__form {
+            .formHeading {
+                margin-top: 0 !important;
+                font-size: 30px;
+            }
+            form.loginForm {
+                margin-top: 70px;
+                input[type=text],
+                input[type=password],
+                input[type=email], textarea {
+                    width: 100% !important;
+                }
+                input#salary {
+                    width: 96% !important;
+                }
+                textarea {
+                    max-width: 100% !important;
+                }
+            }
+        }
+        &.content {
+            .content__item__wrapper {
+                font-size: 11px !important;
+            }
+            .content__items {
+                margin-top: 40px;
+                font-family: "Montserrat";
+            }
+            .content__item {
+                margin-top: 60px;
+            }
+            .user__data, .user__experiense {
+                color: #3e3e3e;
+                font-weight: 300 !important;
+            }
+            .user__descr {
+                padding-top: 10px;
+                color: #3e3e3e;
+                font-weight: 300;
+            }
+        }
+    }
+}		
+/* Custom, iPhone Retina */
+@media only screen and (max-width : 320px){
+}

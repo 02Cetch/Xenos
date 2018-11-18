@@ -1,0 +1,16 @@
+@import "mixins/font-face";
+
+@include font-face("BebasNeue", "../fonts/BebasNeue-Regular/BebasNeue-Regular");
+@include font-face("BebasNeue", "../fonts/BebasNeue-Thin/BebasNeue-Thin", 100);
+@include font-face("BebasNeue", "../fonts/BebasNeue-Light/BebasNeue-Light", 200);
+@include font-face("BebasNeue", "../fonts/BebasNeue-Book/BebasNeue-Book", 300);
+@include font-face("BebasNeue", "../fonts/BebasNeue-Bold/BebasNeue-Bold", 800);
+
+@include font-face("Montserrat", "../fonts/Montserrat-Regular/Montserrat-Regular");
+@include font-face("Montserrat", "../fonts/Montserrat-Thin/Montserrat-Thin", 100);
+@include font-face("Montserrat", "../fonts/Montserrat-ThinItalic/Montserrat-ThinItalic", 100, italic);
+@include font-face("Montserrat", "../fonts/Montserrat-Light/Montserrat-Light", 200);
+@include font-face("Montserrat", "../fonts/Montserrat-Medium/Montserrat-Medium", 400);
+@include font-face("Montserrat", "../fonts/Montserrat-MediumItalic/Montserrat-MediumItalic", 400, italic);
+@include font-face("Montserrat", "../fonts/Montserrat-Semibold/Montserrat-Semibold", 600);
+@include font-face("Montserrat", "../fonts/Montserrat-Bold/Montserrat-Bold", 800);
