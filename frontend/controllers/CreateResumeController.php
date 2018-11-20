@@ -12,6 +12,8 @@ class CreateResumeController extends \yii\web\Controller
     {
         $model = new CreateResumeForm();
 
+
+
         /* @var $currentUser frontend\models\User*/
         $currentUser = Yii::$app->user->identity;
 

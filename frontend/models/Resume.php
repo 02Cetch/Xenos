@@ -2,7 +2,10 @@
 
 namespace frontend\models;
 
+use yii\helpers\ArrayHelper;
 use Yii;
+use yii\data\ActiveDataProvider;
+
 /**
  * This is the model class for table "resume".
  *
@@ -25,7 +28,6 @@ class Resume extends \yii\db\ActiveRecord
     {
         return 'resume';
     }
-
     /**
      * @return \yii\db\ActiveQuery
      *
@@ -62,10 +64,12 @@ class Resume extends \yii\db\ActiveRecord
         }
         return false;
     }
+
     public function getResumes($offset, $limit)
     {
-        return $this->find()->orderBy('updated_at')->offset($offset)->limit($limit)->all();
+        return $this->find()->orderBy(['updated_at' => SORT_DESC])->offset($offset)->limit($limit)->all();
     }
+
     public function count() {
         return $this->find()->count();
     }

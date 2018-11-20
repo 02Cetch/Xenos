@@ -91,6 +91,11 @@ body {
   height: 100%; }
 
 /* === PRELOADER === */
+.resume__title {
+  font-size: 25px;
+  font-family: "Montserrat", Serif;
+  color: #323232; }
+
 .preloader__wrapper {
   position: fixed;
   top: 0;
@@ -540,6 +545,8 @@ section.user__profile .user__profile__container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex; }
+  section.user__profile .user__profile__container .user__profile__container__fullname {
+    font-size: 23px; }
   section.user__profile .user__profile__container .user__profile__container__info {
     margin-left: 70px; }
     section.user__profile .user__profile__container .user__profile__container__info.no_margin_left {

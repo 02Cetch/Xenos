@@ -6,17 +6,24 @@ use Yii;
 use yii\data\Pagination;
 use frontend\models\Resume;
 use frontend\models\User;
+use frontend\models\forms\SearchForm;
+use yii\data\ActiveDataProvider;
 
 class ResumeController extends \yii\web\Controller
 {
     /**
      * @return string
      *
+     *
+     * страница отображения всех резюме
      */
     public function actionIndex()
     {
 
         $resume = new Resume();
+        $model = new SearchForm();
+
+        $dataProvider = null;
 
         // подключаем пагинацию
         $pagination = new Pagination([
@@ -26,14 +33,34 @@ class ResumeController extends \yii\web\Controller
             'pageSizeParam' => false,
         ]);
 
+        // по умолчанию - пока пользователь не воспользовался поиском
+        // отображает последние резюме
         $resumes = $resume->getResumes($pagination->offset, $pagination->limit);
 
-//        echo '<pre>';
-//            print_r($userData);
-//        echo '</pre>';die;
+
+        // если пользователь воспользовался поиском
+        if($model->load(Yii::$app->request->post())) {
+
+            // получаем данные, но уже без пагинации
+            $resumes = $model->resumeSearch();
+
+            // убираем пагинацию
+            $pagination = null;
+
+            $dataProvider = new ActiveDataProvider([
+               'query' => $resumes,
+//                'pagination' => [
+//                    'pageSize' => 2,
+//                ],
+            ]);
+            $resumes = $dataProvider->getModels();
+        }
+
         return $this->render('index', [
-            'resumes' => $resumes,
             'pagination' => $pagination,
+            'model' => $model,
+            'resumes' => $resumes,
+
         ]);
     }
 

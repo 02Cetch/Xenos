@@ -21,7 +21,8 @@
         "bower-asset/font-awesome": "^5.5",
         "yiisoft/yii2-authclient": "^2.1",
         "intervention/image": "^2.4",
-        "2amigos/yii2-file-upload-widget": "~1.0"
+        "2amigos/yii2-file-upload-widget": "~1.0",
+        "yiisoft/yii2-sphinx": "^2.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

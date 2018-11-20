@@ -2,19 +2,26 @@
 /* @var $this yii\web\View */
 /* @var $resumes array */
 /* @var $pagination \yii\data\Pagination */
+use yii\widgets\ActiveForm;
 use yii\widgets\LinkPager;
 
 $this->title = 'Resume | Xenos';
 ?>
 </header>
 <section class="search">
-    <div class="conteiner">
+    <div class="container">
         <div class="row">
-            <div class="col-md-2 col-md-offset-9">
+            <div class="col-md-2 col-md-offset-10 col-sm-6 col-sm-offset-6">
                 <div class="searchInput">
-                    <input type="search" placeholder="Search...">
+                    <?php $form = ActiveForm::begin(
+                        ['options' => [
+                            'class'=> 'loginForm',
+                            'id' => 'form-edit',
+                        ]]); ?>
+                    <?= $form->field($model, 'keyword')->textInput(['type' => 'search', 'placeholder' => 'Search...','class' => 'inputs'])->label(false) ?>
                     <span class="fa fa-search"></span>
                 </div>
+                <?php ActiveForm::end(); ?>
             </div>
         </div>
     </div>
@@ -27,19 +34,21 @@ $this->title = 'Resume | Xenos';
                     <?php foreach ($resumes as $resume): ?>
                     <div class="content__item">
                         <div class="content__item__wrapper">
-                            <h2 class="content__title"><a href="/resume/view/<?php echo $resume->id ?>"><?php echo $resume->title ?></a></h2>
-                            <h3 class="payday"><span><?php echo $resume->salary ?>$/month</span></h3>
+                            <h2 class="content__title"><a href="/resume/view/<?php echo $resume['id'] ?>"><?php echo $resume['title'] ?></a></h2>
+                            <h3 class="payday"><span><?php echo $resume['salary'] ?>$/month</span></h3>
                         </div>
-                        <p class="user__experiense">Experience: <br>  <?php echo $resume->experience ?> years</p>
-                        <p class="user__createtime"><i class="pe pe-7s-clock"></i> <?php echo Yii::$app->formatter->asDateTime($resume->created_at, 'php:Y-m-d H:i:s') ?></p>
+                        <p class="user__experiense">Experience: <br>  <?php echo $resume['experience'] ?> years</p>
+                        <p class="user__createtime"><i class="pe pe-7s-clock"></i> <?php echo Yii::$app->formatter->asDateTime($resume['created_at'], 'php:Y-m-d H:i:s') ?></p>
                         <p class="user__descr">
-                            <?php echo $resume->description ?>
+                            <?php echo $resume['description'] ?>
                         </p>
                     </div>
                         <?php endforeach; ?>
                 </div>
                 <section class="pagination">
-                    <?= LinkPager::widget(['pagination' => $pagination, 'options' => ['class' => 'pagination__list'],]) ?>
+                    <?php if($pagination): ?>
+                        <?= LinkPager::widget(['pagination' => $pagination, 'options' => ['class' => 'pagination__list'],]) ?>
+                    <?php endif; ?>
                 </section>
         </div>
     </div>

@@ -15,7 +15,11 @@ $width: 20px;
 $height: 20px;
 
 $bounce_height: 30px;
-
+.resume__title {
+  font-size: 25px;
+  font-family: "Montserrat", Serif;
+  color: #323232;
+}
 .preloader__wrapper {
     position: fixed;
 	top: 0;
@@ -506,6 +510,9 @@ section {
                 //width: 200px;
                 //height: 200px;
             }
+          .user__profile__container__fullname {
+            font-size: 23px;
+          }
             .user__profile__container__info {
                 margin-left: 70px;
                 &.no_margin_left {

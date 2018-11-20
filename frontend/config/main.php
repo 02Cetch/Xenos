@@ -12,6 +12,12 @@ return [
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
+        'sphinx' => [
+            'class' => 'yii\sphinx\Connection',
+            'dsn' => 'mysql:host=127.0.0.1;port=9306;dbname=yii2advanced',
+            'username' => 'root',
+            'password' => 'root',
+        ],
         'request' => [
             'csrfParam' => '_csrf-frontend',
         ],

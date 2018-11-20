@@ -2,6 +2,8 @@
 
 namespace frontend\controllers;
 
+use yii\data\ActiveDataProvider;
+use frontend\models\forms\SearchForm;
 use Yii;
 use frontend\models\User;
 use frontend\models\Vacancy;
@@ -15,7 +17,11 @@ class VacancyController extends \yii\web\Controller
     public function actionIndex()
     {
         $vacancy = new Vacancy();
+        $model = new SearchForm();
 
+        $dataProvider = null;
+
+        // подключаем пагинацию
         $pagination = new Pagination([
             'defaultPageSize' => 3,
             'totalCount' => $vacancy->count(),
@@ -23,14 +29,33 @@ class VacancyController extends \yii\web\Controller
             'pageSizeParam' => false,
         ]);
 
+        // по умолчанию - пока пользователь не воспользовался поиском
+        // отображает последние резюме
         $vacancies = $vacancy->getVacancies($pagination->offset, $pagination->limit);
 
-//        echo '<pre>';
-//            print_r($vacancies);
-//        echo '</pre>';die;
+
+        // если пользователь воспользовался поиском
+        if($model->load(Yii::$app->request->post())) {
+
+            // получаем данные, но уже без пагинации
+            $vacancies = $model->vacancySearch();
+
+            // убираем пагинацию
+            $pagination = null;
+
+            $dataProvider = new ActiveDataProvider([
+                'query' => $vacancies,
+//                'pagination' => [
+//                    'pageSize' => 2,
+//                ],
+            ]);
+            $vacancies = $dataProvider->getModels();
+        }
+
         return $this->render('index', [
-            'vacancies' => $vacancies,
             'pagination' => $pagination,
+            'model' => $model,
+            'vacancies' => $vacancies,
         ]);
     }
 

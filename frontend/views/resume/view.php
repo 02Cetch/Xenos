@@ -14,9 +14,10 @@ $this->title = $resume->title;
     <div class="container">
         <div class="row">
             <div class="col-md-10">
+                <h1 class="resume__title"><?php echo $resume->title?></h1>
+
                 <div class="user__profile__container">
                     <div class="user__profile__container__info no_margin_left">
-
                         <?php if($userData->full_name): ?>
                             <h1 class="user__profile__container__fullname"><a href="<?php echo Url::to(['/user/profile/view', 'id' => $userData->id]) ?>"><?php echo $userData->full_name; ?></a></h1>
                         <?php elseif ($userData->username):?>
