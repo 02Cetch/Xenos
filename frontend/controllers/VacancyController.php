@@ -42,20 +42,13 @@ class VacancyController extends \yii\web\Controller
 
             // убираем пагинацию
             $pagination = null;
-
-            $dataProvider = new ActiveDataProvider([
-                'query' => $vacancies,
-//                'pagination' => [
-//                    'pageSize' => 2,
-//                ],
-            ]);
-            $vacancies = $dataProvider->getModels();
         }
 
         return $this->render('index', [
             'pagination' => $pagination,
             'model' => $model,
             'vacancies' => $vacancies,
+            'keyword' => $model->getKeyword(),
         ]);
     }
 

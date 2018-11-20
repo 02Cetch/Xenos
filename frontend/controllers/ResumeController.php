@@ -46,21 +46,13 @@ class ResumeController extends \yii\web\Controller
 
             // убираем пагинацию
             $pagination = null;
-
-            $dataProvider = new ActiveDataProvider([
-               'query' => $resumes,
-//                'pagination' => [
-//                    'pageSize' => 2,
-//                ],
-            ]);
-            $resumes = $dataProvider->getModels();
         }
 
         return $this->render('index', [
             'pagination' => $pagination,
             'model' => $model,
             'resumes' => $resumes,
-
+            'keyword' => $model->getKeyword(),
         ]);
     }
 

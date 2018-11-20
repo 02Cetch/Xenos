@@ -4,6 +4,7 @@
 /* @var $pagination \yii\data\Pagination */
 use yii\widgets\ActiveForm;
 use yii\widgets\LinkPager;
+use frontend\helpers\HighLightHelper;
 
 $this->title = 'Resume | Xenos';
 ?>
@@ -34,13 +35,13 @@ $this->title = 'Resume | Xenos';
                     <?php foreach ($resumes as $resume): ?>
                     <div class="content__item">
                         <div class="content__item__wrapper">
-                            <h2 class="content__title"><a href="/resume/view/<?php echo $resume['id'] ?>"><?php echo $resume['title'] ?></a></h2>
-                            <h3 class="payday"><span><?php echo $resume['salary'] ?>$/month</span></h3>
+                            <h2 class="content__title"><a href="/resume/view/<?php echo $resume['id'] ?>"><?php echo HighLightHelper::process($keyword, $resume['title']) ?></a></h2>
+                            <h3 class="payday"><span><?php echo HighLightHelper::process($keyword, $resume['salary']) ?>$/month</span></h3>
                         </div>
-                        <p class="user__experiense">Experience: <br>  <?php echo $resume['experience'] ?> years</p>
+                        <p class="user__experiense">Experience: <br>  <?php echo HighLightHelper::process($keyword, $resume['experience']) ?> years</p>
                         <p class="user__createtime"><i class="pe pe-7s-clock"></i> <?php echo Yii::$app->formatter->asDateTime($resume['created_at'], 'php:Y-m-d H:i:s') ?></p>
                         <p class="user__descr">
-                            <?php echo $resume['description'] ?>
+                            <?php echo HighLightHelper::process($keyword, $resume['description']) ?>
                         </p>
                     </div>
                         <?php endforeach; ?>

@@ -38,6 +38,23 @@ class SearchForm extends Model
             ['keyword', 'string', 'max' => 300],
         ];
     }
+    public function getKeyword()
+    {
+        return $this->keyword;
+    }
+    public function countResumeSearchRequests()
+    {
+        // sql запрос к Sphinx
+        $sql = "SELECT COUNT(*) FROM resume_index WHERE MATCH(:keyword)";
+
+        $params = [
+            'keyword' => $this->keyword,
+        ];
+        // возвращает ключи записей в БД
+        $counter = ArrayHelper::getColumn(Yii::$app->sphinx->createCommand($sql, $params)->queryAll(), 'count(*)');
+
+        return $counter[0];
+    }
 
     /**
      * @return $this
@@ -63,7 +80,27 @@ class SearchForm extends Model
             $resumesId = ArrayHelper::map($dataId, 'id', 'id');
 
             // находим записи в БД и возвращаем
-            return $data = Resume::find()->where(['id' => $resumesId])->asArray(); //->all();
+            $data = Resume::find()->where(['id' => $resumesId])->asArray()->all();
+
+            $data = ArrayHelper::index($data, 'id');
+
+            $result = [];
+
+            foreach ($resumesId as $id) {
+                $result[] = [
+                    'id' => $id,
+                    'title' => $data[$id]['title'],
+                    'user_id' => $data[$id]['user_id'],
+                    'title' => $data[$id]['title'],
+                    'salary' => $data[$id]['salary'],
+                    'experience' => $data[$id]['experience'],
+                    'description' => $data[$id]['description'],
+                    'working_experience' => $data[$id]['working_experience'],
+                    'created_at' => $data[$id]['created_at'],
+                    'updated_at' => $data[$id]['updated_at'],
+                ];
+            }
+            return $result;
         }
     }
 
@@ -92,7 +129,7 @@ class SearchForm extends Model
             $resumesId = ArrayHelper::map($dataId, 'id', 'id');
 
             // находим записи в БД и возвращаем
-            return $data = Vacancy::find()->where(['id' => $resumesId])->asArray(); //->all();
+            return $data = Vacancy::find()->where(['id' => $resumesId])->asArray()->all();
         }
     }
 }

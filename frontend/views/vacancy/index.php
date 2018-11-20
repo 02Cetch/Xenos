@@ -2,6 +2,7 @@
 /* @var $this yii\web\View */
 use yii\widgets\LinkPager;
 use yii\widgets\ActiveForm;
+use frontend\helpers\HighLightHelper;
 $this->title = 'Vacancy | Xenos';
 ?>
 </header>
@@ -31,14 +32,14 @@ $this->title = 'Vacancy | Xenos';
                     <?php foreach ($vacancies as $vacancy): ?>
                     <div class="content__item">
                         <div class="content__item__wrapper">
-                            <h2 class="content__title"><a href="<?php echo "/vacancy/view/" . $vacancy['id'] ?>"><?php echo $vacancy['title'] ?></a></h2>
-                            <h3 class="payday"><span><?php echo $vacancy['salary'] ?>$/month</span></h3>
+                            <h2 class="content__title"><a href="<?php echo "/vacancy/view/" . $vacancy['id'] ?>"><?php echo HighLightHelper::process($keyword, $vacancy['title']) ?></a></h2>
+                            <h3 class="payday"><span><?php echo HighLightHelper::process($keyword, $vacancy['salary']) ?>$/month</span></h3>
                         </div>
-                        <p class="user__experiense">Experience: <br>  <?php echo $vacancy['experience'] ?> years</p>
+                        <p class="user__experiense">Experience: <br>  <?php echo HighLightHelper::process($keyword, $vacancy['experience']) ?> years</p>
                         <p class="user__createtime"><i class="pe pe-7s-clock"></i> <?php echo Yii::$app->formatter->asDateTime($vacancy['created_at'], 'php:Y-m-d H:i:s') ?></p>
 
                         <p class="user__descr">
-                            <?php echo $vacancy['description'] ?>
+                            <?php echo HighLightHelper::process($keyword, $vacancy['description']) ?>
                         </p>
                     </div>
                         <?php endforeach; ?>
