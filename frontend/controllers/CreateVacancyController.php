@@ -6,6 +6,12 @@ use frontend\models\forms\CreateVacancyForm;
 
 use Yii;
 
+/**
+ * Class CreateVacancyController
+ * @package frontend\controllers
+ *
+ * Creating new vacancy
+ */
 class CreateVacancyController extends \yii\web\Controller
 {
     public function actionIndex()
@@ -13,16 +19,15 @@ class CreateVacancyController extends \yii\web\Controller
         $model = new CreateVacancyForm();
 
         $currentUser = Yii::$app->user->identity;
+
         if($currentUser->isUser()) {
             $this->goHome();
         }
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
-                if ($model->load(Yii::$app->request->post())) {
-                    if($model->save()) {
-                        Yii::$app->getSession()->setFlash('Success', 'Your account information updated');
-                    }
+                if($model->save()) {
+                    Yii::$app->getSession()->setFlash('Success', 'Your account information updated');
                 }
             }
         }
