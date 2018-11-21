@@ -365,6 +365,14 @@ section.view {
     display: inline-block; }
     section.view .view__column .view__column__wrapper .title__descr {
       margin-bottom: 60px; }
+section.resume {
+  font-family: "Montserrat", Serif; }
+  section.resume .resume__title {
+    font-size: 30px; }
+  section.resume .resume__title__description {
+    font-size: 20px; }
+  section.resume .resume__description {
+    font-size: 15px; }
 section.services {
   margin-top: 50px;
   background: #f5f5f5;

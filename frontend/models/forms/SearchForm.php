@@ -38,23 +38,30 @@ class SearchForm extends Model
             ['keyword', 'string', 'max' => 300],
         ];
     }
+
+    /**
+     * @return $keyword mixed
+     *
+     */
     public function getKeyword()
     {
         return $this->keyword;
     }
-    public function countResumeSearchRequests()
-    {
-        // sql запрос к Sphinx
-        $sql = "SELECT COUNT(*) FROM resume_index WHERE MATCH(:keyword)";
 
-        $params = [
-            'keyword' => $this->keyword,
-        ];
-        // возвращает ключи записей в БД
-        $counter = ArrayHelper::getColumn(Yii::$app->sphinx->createCommand($sql, $params)->queryAll(), 'count(*)');
 
-        return $counter[0];
-    }
+//    public function countResumeSearchRequests()
+//    {
+//        // sql запрос к Sphinx
+//        $sql = "SELECT COUNT(*) FROM resume_index WHERE MATCH(:keyword)";
+//
+//        $params = [
+//            'keyword' => $this->keyword,
+//        ];
+//        // возвращает ключи записей в БД
+//        $counter = ArrayHelper::getColumn(Yii::$app->sphinx->createCommand($sql, $params)->queryAll(), 'count(*)');
+//
+//        return $counter[0];
+//    }
 
     /**
      * @return $this

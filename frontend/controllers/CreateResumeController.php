@@ -6,12 +6,17 @@ use frontend\models\forms\CreateResumeForm;
 
 use Yii;
 
+/**
+ * Class CreateResumeController
+ * @package frontend\controllers
+ *
+ * Creating New Resume
+ */
 class CreateResumeController extends \yii\web\Controller
 {
     public function actionIndex()
     {
         $model = new CreateResumeForm();
-
 
 
         /* @var $currentUser frontend\models\User*/
@@ -25,10 +30,8 @@ class CreateResumeController extends \yii\web\Controller
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
-                if ($model->load(Yii::$app->request->post())) {
-                    if($model->save()) {
-                        Yii::$app->getSession()->setFlash('Success', 'Your account information updated');
-                    }
+                if($model->save()) {
+                     Yii::$app->getSession()->setFlash('Success', 'Your account information updated');
                 }
             }
         }

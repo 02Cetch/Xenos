@@ -14,8 +14,6 @@ $this->title = $resume->title;
     <div class="container">
         <div class="row">
             <div class="col-md-10">
-                <h1 class="resume__title"><?php echo $resume->title?></h1>
-
                 <div class="user__profile__container">
                     <div class="user__profile__container__info no_margin_left">
                         <?php if($userData->full_name): ?>
@@ -30,20 +28,35 @@ $this->title = $resume->title;
                         <p class="user__profile__container__minimum_salary">Minimum Salary: <?php echo $resume->salary ?>$</p>
                         <p class="user__createtime"><i class="pe pe-7s-clock"></i> <?php echo Yii::$app->formatter->asDateTime($resume->created_at, 'php:Y-m-d H:i:s') ?></p>
                         <?php if($userData->description):?>
-                        <br>
-                        <p class="user__profile__container__descr">
-                            <?php echo $resume->description ?>
-                        </p>
+                            <br>
+                            <p class="user__profile__container__descr">
+                                <?php echo $resume->description ?>
+                            </p>
                         <?php endif; ?>
 
                         <?php if($resume || !$resume->isUserResume($currentUser)): ?>
-                        <div class="user__profile__container__actions">
-                            <a href="#" class="user__profile__container__contact button__to accent">Contact</a>
-                            <a href="#" class="user__profile__container__report button__to grey reverse">Report</a>
-                        </div>
+                            <div class="user__profile__container__actions">
+                                <a href="#" class="user__profile__container__contact button__to accent">Contact</a>
+                                <a href="#" class="user__profile__container__report button__to grey reverse">Report</a>
+                            </div>
                         <?php endif; ?>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="resume">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <br><br><br>
+                <h1 class="resume__title"><?php echo $resume->title ?></h1>
+                <h2 class="resume__title__description">Description:</h2>
+                <p class="resume__description"><?php echo $resume->description ?></p>
+                <br>
+                <h2 class="resume__title__experience">Experience:</h2>
+                <p class="resume__description"><?php echo $resume->experience ?> years</p>
             </div>
         </div>
     </div>

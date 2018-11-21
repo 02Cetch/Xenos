@@ -33,8 +33,9 @@
 
                         <?php if($currentUser && $currentUser->equals($user)): ?>
                         <a href="<?php echo \yii\helpers\Url::to(['/user/profile/edit'])?>" class="user__profile__container__edit button__to accent">Edit Profile</a>
-                        <?php endif; ?>
+                        <?php else: ?>
                         <a href="#" class="user__profile__container__report button__to grey reverse">Report Profile</a>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

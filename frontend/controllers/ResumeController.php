@@ -11,12 +11,12 @@ use yii\data\ActiveDataProvider;
 
 class ResumeController extends \yii\web\Controller
 {
-    /**
-     * @return string
-     *
-     *
-     * страница отображения всех резюме
-     */
+   /**
+    * @return string
+    *
+    *
+    * страница отображения всех резюме
+   */
     public function actionIndex()
     {
 
@@ -41,7 +41,7 @@ class ResumeController extends \yii\web\Controller
         // если пользователь воспользовался поиском
         if($model->load(Yii::$app->request->post())) {
 
-            // получаем данные, но уже без пагинации
+            // получаем данные
             $resumes = $model->resumeSearch();
 
             // убираем пагинацию
