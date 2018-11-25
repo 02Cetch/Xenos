@@ -103,7 +103,7 @@ $this->title = 'Home | Xenos';
         <div class="row">
             <div class="col-md-12">
                 <h1 class="title">Sign Up Now</h1>
-                <a href="#" class="button__to accent reverse">Sign Up</a>
+                <a href="<?php echo Url::to(['user/default/signup']); ?>" class="button__to accent reverse">Sign Up</a>
             </div>
         </div>
     </div>

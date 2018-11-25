@@ -47,6 +47,7 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                '/user/signup' => '/user/default/signup',
                 '/user/login' => '/user/default/login',
                 'profile/edit' => 'user/profile/edit',
                 'profile/view/<id:\d+>' => 'user/profile/view',
