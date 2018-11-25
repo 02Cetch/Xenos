@@ -1,12 +1,21 @@
-<?php
- /* @var $resume \frontend\models\Resume */
- /* @var $userData \frontend\models\User */
- /* @var $currentUser \frontend\models\User */
+    <?php
+     /* @var $resume \frontend\models\Resume */
+     /* @var $userData \frontend\models\User */
+     /* @var $currentUser \frontend\models\User */
 
-use yii\helpers\Url;
-use yii\helpers\Html;
+    use yii\helpers\Url;
+    use yii\helpers\Html;
+    use frontend\assets\AppAsset;
+    use yii\web\JqueryAsset;
 
-$this->title = $resume->title;
+    $this->title = $resume->title . " | Xenos";
+
+    AppAsset::register($this);
+
+    $this->registerJsFile('@web/js/reports.js', [
+        'depends' => JqueryAsset::className(),
+    ]);
+
 ?>
 
 </header>
@@ -34,11 +43,17 @@ $this->title = $resume->title;
                             </p>
                         <?php endif; ?>
 
-                        <?php if($resume || !$resume->isUserResume($currentUser)): ?>
-                            <div class="user__profile__container__actions">
-                                <a href="#" class="user__profile__container__contact resume__report button__to accent">Contact</a>
-                                <a href="#" class="user__profile__container__report button__to grey reverse">Report</a>
-                            </div>
+                        <?php if(!Yii::$app->user->isGuest): ?>
+                            <?php if($resume || !$resume->isUserResume($currentUser)): ?>
+                                <div class="user__profile__container__actions">
+                                    <a href="#" class="user__profile__container__contact resume__report button__to accent">Contact</a>
+                                    <?php if(!$resume->isReported($currentUser)): ?>
+                                        <a href="#" class="user__profile__container__report button__to grey reverse" data-id="<?php echo $resume->id ?>">Report</a>
+                                    <?php else: ?>
+                                        <a href="#" class="user__profile__container__report button__to grey reverse disabled" data-id="<?php echo $resume->id ?>">User has been reported</a>
+                                    <?php endif; ?>
+                                </div>
+                            <?php endif; ?>
                         <?php endif; ?>
                     </div>
                 </div>

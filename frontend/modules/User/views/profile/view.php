@@ -49,7 +49,6 @@
                                         <a href="#" class="user__profile__container__report button__to grey reverse" data-id="<?php echo $user->id ?>">Report</a>
                                         <?php else: ?>
                                         <a href="#" class="user__profile__container__report button__to grey reverse disabled" data-id="<?php echo $user->id ?>">User has been reported</a>
-<!--                                        <p>User has been reported</p>-->
                                     <?php endif; ?>
                                 </div>
                             <?php endif; ?>

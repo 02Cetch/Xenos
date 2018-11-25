@@ -55,27 +55,79 @@ class ReportController extends \yii\web\Controller
         ];
     }
 
-    /**
-     * @param $id
-     * @return string
-     *
-     * Report resume action
-     */
-    public function actionReportResume($id)
-    {
-        return $this->render('report-resume');
-    }
 
     /**
-     * @param $id
      * @return string
      *
      * Report vacancy action
      */
-    public function actionReportVacancy($id)
+    public function actionReportVacancy()
     {
-        return $this->render('report-vacancy');
+        if(Yii::$app->user->isGuest) {
+            return $this->redirect(['/user/login']);
+        }
+
+        $model = new Vacancy();
+
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        // получаем id поста, на который пожаловались
+        // по методу post
+        $id = Yii::$app->request->post('id');
+
+        /* @var $currentUser User */
+        $currentUser = Yii::$app->user->identity;
+
+        // находим вакансию
+        $vacancy = $model->getVacancyById($id);
+
+        if($vacancy->report($currentUser)) {
+            return [
+                'success' => true,
+                'text' => 'User Reported',
+            ];
+        }
+        return [
+            'success' => false,
+            'text' => 'Error',
+        ];
     }
 
+    /**
+     * @return string
+     *
+     * Report resume action
+     */
+    public function actionReportResume()
+    {
+        if(Yii::$app->user->isGuest) {
+            return $this->redirect(['/user/login']);
+        }
+
+        $model = new Resume();
+
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        // получаем id поста, на который пожаловались
+        // по методу post
+        $id = Yii::$app->request->post('id');
+
+        /* @var $currentUser User */
+        $currentUser = Yii::$app->user->identity;
+
+        // находим вакансию
+        $resume = $model->getResumeById($id);
+
+        if($resume->report($currentUser)) {
+            return [
+                'success' => true,
+                'text' => 'User Reported',
+            ];
+        }
+        return [
+            'success' => false,
+            'text' => 'Error',
+        ];
+    }
 
 }

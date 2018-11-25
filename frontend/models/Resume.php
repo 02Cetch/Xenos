@@ -18,6 +18,7 @@ use yii\data\ActiveDataProvider;
  * @property string $working_experience
  * @property int $created_at
  * @property int $updated_at
+ * @property int $reports
  */
 class Resume extends \yii\db\ActiveRecord
 {
@@ -37,7 +38,39 @@ class Resume extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
+    /**
+     * @param $id
+     * @return array|null|\yii\db\ActiveRecord
+     *
+     * get vacancy by id
+     */
+    public function getResumeById($id)
+    {
+        return $this->find()->where(['id' => $id])->one();
+    }
 
+    public function report(User $user)
+    {
+        /* @var $redis Connection */
+        $redis = Yii::$app->redis;
+
+        $key = "resume:{$this->getId()}:reports";
+
+        if (!$redis->sismember($key, $user->getId())) {
+            $redis->sadd($key, $user->getId());
+
+            $this->reports++;
+
+            return $this->save(false, ['reports']);
+        }
+    }
+    public function isReported(User $user)
+    {
+        /* @var $redis Connection */
+        $redis = Yii::$app->redis;
+
+        return $redis->sismember("resume:{$this->id}:reports", $user->getId());
+    }
     /**
      * @return array|null|\yii\db\ActiveRecord
      *
@@ -48,6 +81,7 @@ class Resume extends \yii\db\ActiveRecord
 
         return $data = User::find()->where(['id' => $this->user_id])->one();
     }
+
 
     /**
      * @param $currentUser
@@ -90,6 +124,13 @@ class Resume extends \yii\db\ActiveRecord
 //        return str_replace(["\r\n", "\r", "\n"], '<br/>', $string);
 
         return $string;
+    }
+    /**
+     * {@inheritdoc}
+     */
+    public function getId()
+    {
+        return $this->getPrimaryKey();
     }
     /**
      * {@inheritdoc}

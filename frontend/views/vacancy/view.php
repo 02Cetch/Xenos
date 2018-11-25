@@ -6,8 +6,15 @@
 
     use yii\helpers\Html;
     use yii\helpers\Url;
+    use frontend\assets\AppAsset;
+    use yii\web\JqueryAsset;
+    AppAsset::register($this);
 
-    $this->title = $vacancy->title;
+    $this->registerJsFile('@web/js/reports.js', [
+        'depends' => JqueryAsset::className(),
+    ]);
+
+    $this->title = $vacancy->title . " | Xenos";
 ?>
 
 
@@ -29,8 +36,14 @@
                     <p class="vacancy__payday"><?php echo $vacancy->salary ?>$/month</p>
                     <p class="user__createtime"><i class="pe pe-7s-clock"></i> <?php echo Yii::$app->formatter->asDateTime($vacancy->created_at, 'php:Y-m-d H:i:s') ?></p>
                     <p class="vacancy__company"><a href="<?php echo Url::to(['/user/profile/view/', 'id' => $userData->id]) ?>"><?php echo $userData->username ?></a></p>
-                    <?php if($vacancy || !$vacancy->isUserVacancy($currentUser)): ?>
-                        <a href="#" class="vacancy__report button__to grey reverse">Report</a>
+                    <?php if(!Yii::$app->user->isGuest):?>
+                        <?php if($vacancy || !$vacancy->isUserVacancy($currentUser)): ?>
+                            <?php if(!$vacancy->isReported($currentUser)): ?>
+                                <a href="#" class="vacancy__report button__to grey reverse" data-id="<?php echo $vacancy->id ?>">Report</a>
+                            <?php else: ?>
+                                <a href="#" class="vacancy__report button__to grey reverse disabled" data-id="<?php echo $vacancy->id ?>">User has been reported</a>
+                            <?php endif; ?>
+                        <?php endif; ?>
                     <?php endif; ?>
                 </div>
             </div>
