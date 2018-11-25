@@ -30,6 +30,7 @@ use yii\web\IdentityInterface;
  * @property string $description
  * @property string $image
  * @property string $password write-only password
+ * @property integer $reports
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -57,7 +58,41 @@ class User extends ActiveRecord implements IdentityInterface
             TimestampBehavior::className(),
         ];
     }
+    /**
+     * @param $id
+     * @return array|null|ActiveRecord
+     *
+     * getting user by id
+     */
+    public function getUserById($id)
+    {
+        $model = new User();
 
+        return $user = $model->find()->where(['id' => $id])->one();
+    }
+
+    public function report(User $user)
+    {
+        /* @var $redis Connection */
+        $redis = Yii::$app->redis;
+
+        $key = "user:{$this->getId()}:reports";
+
+        if (!$redis->sismember($key, $user->getId())) {
+            $redis->sadd($key, $user->getId());
+
+            $this->reports++;
+
+            return $this->save(false, ['reports']);
+        }
+    }
+    public function isReported(User $user)
+    {
+        /* @var $redis Connection */
+        $redis = Yii::$app->redis;
+
+        return $redis->sismember("user:{$this->id}:reports", $user->getId());
+    }
     /**
      * @return \yii\db\ActiveQuery
      *

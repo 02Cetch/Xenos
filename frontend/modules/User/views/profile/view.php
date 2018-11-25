@@ -1,7 +1,16 @@
 <?php
  /* @var $userPosts array*/
     use yii\helpers\Html;
+    use frontend\assets\AppAsset;
+    use yii\web\JqueryAsset;
+
     $this->title = "$user->username | Xenos";
+
+    AppAsset::register($this);
+
+    $this->registerJsFile('@web/js/reports.js', [
+        'depends' => JqueryAsset::className(),
+    ]);
 ?>
 </header>
 <section class="user__profile">
@@ -31,10 +40,19 @@
                         <?php endif; ?>
                         <br>
 
-                        <?php if($currentUser && $currentUser->equals($user)): ?>
-                        <a href="<?php echo \yii\helpers\Url::to(['/user/profile/edit'])?>" class="user__profile__container__edit button__to accent">Edit Profile</a>
-                        <?php else: ?>
-                        <a href="#" class="user__profile__container__report button__to grey reverse">Report Profile</a>
+                        <?php if(!Yii::$app->user->isGuest): ?>
+                            <?php if($currentUser && $currentUser->equals($user)): ?>
+                            <a href="<?php echo \yii\helpers\Url::to(['/user/profile/edit'])?>" class="user__profile__container__edit button__to accent">Edit Profile</a>
+                            <?php else: ?>
+                            <div class="post-report">
+                                    <?php if(!$user->isReported($currentUser)): ?>
+                                        <a href="#" class="user__profile__container__report button__to grey reverse" data-id="<?php echo $user->id ?>">Report</a>
+                                        <?php else: ?>
+                                        <a href="#" class="user__profile__container__report button__to grey reverse disabled" data-id="<?php echo $user->id ?>">User has been reported</a>
+<!--                                        <p>User has been reported</p>-->
+                                    <?php endif; ?>
+                                </div>
+                            <?php endif; ?>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -68,24 +86,3 @@
         </div>
     </div>
 </section>
-
-<?php
-//FileUpload::widget([
-//    'model' => $modelPicture,
-//    'attribute' => 'picture',
-//    'url' => ['/user/profile/upload-picture'], // your url, this is just for demo purposes,
-//    'options' => ['accept' => 'image/*'],
-//    'clientEvents' => [
-//        'fileuploaddone' => 'function(e, data) {
-//                                    if (data.result.success) {
-//                                        $("#profile-image-success").show();
-//                                        $("#profile-image-fail").hide();
-//                                        $("#profile-picture").attr("src", data.result.pictureUri);
-//                                    } else {
-//                                        $("#profile-image-fail").html(data.result.errors.picture).show();
-//                                        $("#profile-image-success").hide();
-//                                    }
-//                                }',
-//    ],
-//]);
-//?>

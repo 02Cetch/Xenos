@@ -90,6 +90,13 @@
 body {
   height: 100%; }
 
+.disabled {
+  border: 1px solid rgba(50, 50, 50, 0.5) !important;
+  color: rgba(35, 35, 35, 0.5) !important;
+  pointer-events: none;
+  cursor: default;
+  color: black; }
+
 /* === PRELOADER === */
 .resume__title {
   font-size: 25px;

@@ -9,6 +9,13 @@
 body {
     height: 100%;
 }
+.disabled {
+  border: 1px solid rgba(#323232, .5) !important;
+  color: rgba(#232323, .5) !important;
+  pointer-events: none;
+  cursor: default;
+  color: black;
+}
 /* === PRELOADER === */
 
 $width: 20px;

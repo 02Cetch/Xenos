@@ -36,7 +36,7 @@ $this->title = $resume->title;
 
                         <?php if($resume || !$resume->isUserResume($currentUser)): ?>
                             <div class="user__profile__container__actions">
-                                <a href="#" class="user__profile__container__contact button__to accent">Contact</a>
+                                <a href="#" class="user__profile__container__contact resume__report button__to accent">Contact</a>
                                 <a href="#" class="user__profile__container__report button__to grey reverse">Report</a>
                             </div>
                         <?php endif; ?>

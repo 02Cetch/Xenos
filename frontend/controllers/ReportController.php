@@ -3,11 +3,11 @@
 namespace frontend\controllers;
 
 use Yii;
-use yii\data\Pagination;
+
+use frontend\models\Vacancy;
 use frontend\models\Resume;
 use frontend\models\User;
-use frontend\models\forms\SearchForm;
-use yii\data\ActiveDataProvider;
+use yii\web\Response;
 
 /**
  * Class ReportController
@@ -24,9 +24,35 @@ class ReportController extends \yii\web\Controller
      *
      * Report profile action
      */
-    public function actionReportProfile($id)
+    public function actionReportProfile()
     {
-        return $this->render('report-profile');
+        if(Yii::$app->user->isGuest) {
+            return $this->redirect(['/user/login']);
+        }
+
+        $model = new User();
+
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        // получаем id поста, на который пожаловались
+        // по методу post
+        $id = Yii::$app->request->post('id');
+
+        /* @var $currentUser User */
+        $currentUser = Yii::$app->user->identity;
+        // находим пост
+        $user = $model->getUserById($id);
+
+        if($user->report($currentUser)) {
+            return [
+                'success' => true,
+                'text' => 'User Reported',
+            ];
+        }
+        return [
+            'success' => false,
+            'text' => 'Error',
+        ];
     }
 
     /**

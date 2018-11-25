@@ -35,11 +35,6 @@ class ProfileController extends Controller
             $userPosts = $user->getVacanciesByUserId($id);
         }
 
-//        echo '<pre>';
-//            print_r($this->findUser($id));
-//            echo '<br>';
-//            print_r($currentUser);die;
-
         // экземпляр класса PictureForm
         $modelPicture = new PictureForm();
 
