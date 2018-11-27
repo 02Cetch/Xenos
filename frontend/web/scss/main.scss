@@ -89,6 +89,8 @@ $bounce_height: 30px;
 }
 /* === / PRELOADER === */
 
+
+
 /* === PAGINATION === */
 .pagination {
     margin-top: 70px;
@@ -222,6 +224,33 @@ a {
         background: #ffffff;
         color: #232323;
     }
+}
+
+.fa-bell {
+  margin-left: 5px;
+  margin-right: 5px;
+  font-size: 20px !important;
+  color: #fff !important;
+  &:hover {
+    cursor: pointer;
+    color: rgba(#fff, .8) !important;
+  }
+  .notifications__count {
+    position: absolute;
+    top: 5px;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: tomato;
+    .notifications__count__value {
+      font-family: "BebasNeue", Serif;
+      text-align: center;
+      font-size: 12px;
+    }
+  }
 }
 .navbar {
     border-radius: 0px !important;

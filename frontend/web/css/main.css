@@ -299,6 +299,34 @@ a {
     background: #ffffff;
     color: #232323; }
 
+.fa-bell {
+  margin-left: 5px;
+  margin-right: 5px;
+  font-size: 20px !important;
+  color: #fff !important; }
+  .fa-bell:hover {
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.8) !important; }
+  .fa-bell .notifications__count {
+    position: absolute;
+    top: 5px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-line-pack: center;
+        align-content: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: tomato; }
+    .fa-bell .notifications__count .notifications__count__value {
+      font-family: "BebasNeue", Serif;
+      text-align: center;
+      font-size: 12px; }
+
 .navbar {
   border-radius: 0px !important;
   width: 100%;
