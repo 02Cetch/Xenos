@@ -49,6 +49,7 @@ class EditForm extends Model
             ['description', 'string', 'max' => 255],
 
             [['full_name', 'description', 'years'], 'required', 'on' => self::SCENARIO_USER_UPDATE],
+            [['phone', 'address'], 'required', 'on' => self::SCENARIO_COMPANY_UPDATE],
 
         ];
     }

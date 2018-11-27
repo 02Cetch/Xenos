@@ -60,6 +60,13 @@
                     <p class="form__input__title">Description</p>
                     <?= $form->field($model, 'description')->textarea(['value' => Html::encode($currentUser->description),'class' => 'inputs'])->label(false)?>
                     <br>
+                    <p class="form__input__title">Phone</p>
+                    <?= $form->field($model, 'phone')->textInput(['value' => Html::encode($currentUser->phone),'class' => 'inputs'])->label(false) ?>
+                    <br>
+                    <br>
+                    <p class="form__input__title">Address</p>
+                    <?= $form->field($model, 'address')->textInput(['value' => Html::encode($currentUser->address),'class' => 'inputs'])->label(false) ?>
+                    <br>
                     <div class="form-group">
                         <?= Html::submitButton('Edit', ['class' => 'button__to accent button__sumbit', 'name' => 'signup-button']) ?>
                     </div>

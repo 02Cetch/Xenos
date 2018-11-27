@@ -55,6 +55,26 @@
                         <?php endif; ?>
                     </div>
                 </div>
+                <br>
+                <br>
+                <?php if($user->isCompany()): ?>
+                <div class="user__profile__contacts">
+                    <?php if($user->address): ?>
+                        <div class="user__profile__contacts__item">
+                            <i class="fa fa-paper-plane"></i> <?php echo $user->address?>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if($user->address): ?>
+                        <div class="user__profile__contacts__item">
+                            <i class="fa fa-phone"></i>  <?php echo $user->phone ?>
+                        </div>
+                    <?php endif; ?>
+                    <div class="user__profile__contacts__item">
+                        <i class="fa fa-envelope"></i> <?php echo $user->email; ?>
+                    </div>
+                </div>
+                <?php endif; ?>
             </div>
         </div>
     </div>
