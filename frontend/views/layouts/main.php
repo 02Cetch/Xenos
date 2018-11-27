@@ -54,10 +54,10 @@ $user = Yii::$app->user->identity;
                                     } else {
                                         $menuItems[] = ['label' => 'My page','options'=>['class'=>'navbar__list__item'], 'url' => [Url::to(['/user/profile/view/']), 'id' => Yii::$app->user->identity->getId()]];
                                         $menuItems[] = ['label' => $user->isUser() ? 'Create Resume' : 'Create Vacancy' , 'url' => [$user->isUser() ? '/create-resume/index' : '/create-vacancy/index'],'options'=>['class'=>'navbar__list__item']];
-                                        $menuItems[] = '<a href="#" class="fa fa-bell">'
+                                        $menuItems[] = '<a href="/notifications/default" class="fa fa-bell">'
                                             . Html::beginTag('div', ['class' => 'notifications__count'])
                                                 . Html::beginTag('span', ['class' => 'notifications__count__value'])
-                                                    . '10'
+                                                    . '9+'
                                                 .Html::endTag('span')
                                             .Html::endTag('div')
                                             . '</a>';
@@ -92,6 +92,7 @@ $user = Yii::$app->user->identity;
                                     } else {
                                         $menuItems[] = ['label' => 'My page','options'=>['class'=>'navbar__list__item'], 'url' => [Url::to(['/user/profile/view/']), 'id' => Yii::$app->user->identity->getId()]];
                                         $menuItems[] = ['label' => $user->isUser() ? 'Create Resume' : 'Create Vacancy' , 'url' => [$user->isUser() ? '/create-resume/index' : '/create-vacancy/index'],'options'=>['class'=>'navbar__list__item']];
+
                                         $menuItems[] = '<li class="navbar__list__item">'
                                             . Html::beginForm([Url::to(['/user/default/logout'])], 'post')
                                             . Html::submitButton(

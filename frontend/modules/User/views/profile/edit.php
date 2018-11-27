@@ -65,31 +65,6 @@
                     </div>
 
                     <?php ActiveForm::end(); ?>
-
-<!--                <form action="" class="loginForm">-->
-<!--                    <div class="input_container">-->
-<!--                        <p class="form__input__title">Full Name</p>-->
-<!--                        <input type="text" class="inputs" id="position" value="John Kortez">-->
-<!--                        <br>-->
-<!--                        <br>-->
-<!--                        <br>-->
-<!--                        <p class="form__input__title">Years</p>-->
-<!--                        <input type="text" class="inputs" id="years" value="38">-->
-<!--                        <br>-->
-<!--                        <br>-->
-<!--                        <br>-->
-<!--                        <p class="form__input__title">Photo</p>-->
-<!--                        <br>-->
-<!--                        <br>-->
-<!--                        <br>-->
-<!--                        <p class="form__input__title">Description</p>-->
-<!--                        <textarea type="text" class="inputs" id="description" value="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique nobis nam, itaque officiis ullam corrupti qui maiores maxime minus laborum a totam illum quis natus deleniti ducimus tempore repudiandae reiciendis! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique nobis nam, itaque officiis ullam corrupti qui maiores maxime minus laborum a totam illum quis natus deleniti ducimus tempore repudiandae reiciendis!"></textarea>-->
-<!--                        <br>-->
-<!--                        <br>-->
-<!--                        <br>-->
-<!--                        <input type="submit" class="button__to accent button__sumbit">-->
-<!--                    </div>-->
-<!--                </form>-->
             </div>
         </div>
     </div>

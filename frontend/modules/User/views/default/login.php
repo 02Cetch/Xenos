@@ -28,9 +28,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <p class="form__input__title">Password</p>
                     <?= $form->field($model, 'password')->passwordInput()->label(false) ?>
-                    <br>
                     <?= $form->field($model, 'rememberMe')->checkbox() ?>
+
                     <br>
+                    <div style="color:#999;margin:1em 0">
+                        If you forgot your password you can <?= Html::a('reset it', ['/user/default/request-password-reset']) ?>.
+                    </div>
+
                     <div class="form-group">
                         <?= Html::submitButton('Login', ['class' => 'button__to accent button__sumbit', 'name' => 'signup-button']) ?>
                         </div>
