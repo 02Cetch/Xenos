@@ -47,8 +47,8 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                '/user/signup' => '/user/default/signup',
-                '/user/login' => '/user/default/login',
+                'user/signup' => '/user/default/signup',
+                'user/login' => '/user/default/login',
                 'profile/edit' => 'user/profile/edit',
                 'profile/view/<id:\d+>' => 'user/profile/view',
                 'vacancy/view/<id:\d+>' => 'vacancy/view',
@@ -63,6 +63,9 @@ return [
     'modules' => [
         'user' => [
             'class' => 'frontend\modules\user\Module',
+        ],
+        'notifications' => [
+            'class' => 'frontend\modules\notifications\Module',
         ],
     ],
     'params' => $params,

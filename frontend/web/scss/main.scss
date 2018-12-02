@@ -584,6 +584,36 @@ section {
             }
         }
     }
+  &.notification__container {
+    .notifications {
+        .notification__item {
+          margin-bottom: 60px;
+          text-align: center;
+          .marker {
+
+            .pe {
+              font-size: 50px;
+            }
+          }
+          .notification__item__text {
+            .notification__item__text__title {
+              font-family: "BebasNeue", Serif;
+              font-size: 30px;
+            }
+          }
+          .date {
+            font-family: "BebasNeue", Serif;
+            margin: auto 0;
+            .datetime {
+
+            }
+          }
+          &.seen {
+            opacity: .7;
+          }
+        }
+    }
+  }
 }
 footer {
     margin-top: 150px;

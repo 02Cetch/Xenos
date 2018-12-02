@@ -5,7 +5,7 @@
 use yii\widgets\ActiveForm;
 use yii\widgets\LinkPager;
 use frontend\helpers\HighLightHelper;
-
+use yii\helpers\Url;
 $this->title = 'Resume | Xenos';
 ?>
 </header>
@@ -35,7 +35,7 @@ $this->title = 'Resume | Xenos';
                     <?php foreach ($resumes as $resume): ?>
                     <div class="content__item">
                         <div class="content__item__wrapper">
-                            <h2 class="content__title"><a href="/resume/view/<?php echo $resume['id'] ?>"><?php echo HighLightHelper::process($keyword, $resume['title']) ?></a></h2>
+                            <h2 class="content__title"><a href="<?php echo Url::to(['/resume/view/', 'id' => $resume['id']]); ?>"><?php echo HighLightHelper::process($keyword, $resume['title']) ?></a></h2>
                             <h3 class="payday"><span><?php echo HighLightHelper::process($keyword, $resume['salary']) ?>$/month</span></h3>
                         </div>
                         <p class="user__experiense">Experience: <br>  <?php echo HighLightHelper::process($keyword, $resume['experience']) ?> years</p>

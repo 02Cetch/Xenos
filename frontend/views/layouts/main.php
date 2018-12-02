@@ -10,9 +10,11 @@ use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
 use yii\helpers\Url;
+use frontend\modules\notifications\models\Notifications;
 
 AppAsset::register($this);
 $user = Yii::$app->user->identity;
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -54,14 +56,16 @@ $user = Yii::$app->user->identity;
                                     } else {
                                         $menuItems[] = ['label' => 'My page','options'=>['class'=>'navbar__list__item'], 'url' => [Url::to(['/user/profile/view/']), 'id' => Yii::$app->user->identity->getId()]];
                                         $menuItems[] = ['label' => $user->isUser() ? 'Create Resume' : 'Create Vacancy' , 'url' => [$user->isUser() ? '/create-resume/index' : '/create-vacancy/index'],'options'=>['class'=>'navbar__list__item']];
+
+                                        if($user->isUser()) {
                                         $menuItems[] = '<a href="/notifications/default" class="fa fa-bell">'
                                             . Html::beginTag('div', ['class' => 'notifications__count'])
                                                 . Html::beginTag('span', ['class' => 'notifications__count__value'])
-                                                    . '9+'
+                                                    . $userNotificationCount = Notifications::count(Yii::$app->user->identity->getId())
                                                 .Html::endTag('span')
                                             .Html::endTag('div')
                                             . '</a>';
-
+                                        }
                                         $menuItems[] = '<li class="navbar__list__item">'
                                             . Html::beginForm([Url::to(['/user/default/logout'])], 'post')
                                             . Html::submitButton(
