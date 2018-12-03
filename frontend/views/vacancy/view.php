@@ -30,12 +30,6 @@
             <div class="row">
                 <div class="col-md-12">
                     <h1 class="vacancy__title"><?php echo $vacancy->title ?></h1>
-                    <?php if($vacancy || !$vacancy->isUserVacancy($currentUser)): ?>
-                        <a href="#" class="vacancy__contact button__to accent">Contact</a>
-                    <?php endif; ?>
-                    <p class="vacancy__payday"><?php echo $vacancy->salary ?>$/month</p>
-                    <p class="user__createtime"><i class="pe pe-7s-clock"></i> <?php echo Yii::$app->formatter->asDateTime($vacancy->created_at, 'php:Y-m-d H:i:s') ?></p>
-                    <p class="vacancy__company"><a href="<?php echo Url::to(['/user/profile/view/', 'id' => $userData->id]) ?>"><?php echo $userData->username ?></a></p>
                     <?php if(!Yii::$app->user->isGuest):?>
                         <?php if($vacancy || !$vacancy->isUserVacancy($currentUser)): ?>
                             <?php if(!$vacancy->isReported($currentUser)): ?>
@@ -45,6 +39,9 @@
                             <?php endif; ?>
                         <?php endif; ?>
                     <?php endif; ?>
+                    <p class="vacancy__payday"><?php echo $vacancy->salary ?>$/month</p>
+                    <p class="user__createtime"><i class="pe pe-7s-clock"></i> <?php echo Yii::$app->formatter->asDateTime($vacancy->created_at, 'php:Y-m-d H:i:s') ?></p>
+                    <p class="vacancy__company"><a href="<?php echo Url::to(['/user/profile/view/', 'id' => $userData->id]) ?>"><?php echo $userData->username ?></a></p>
                 </div>
             </div>
         </div>
