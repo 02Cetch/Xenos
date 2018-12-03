@@ -27,10 +27,10 @@
                         <?php elseif ($notification->typeUpdateUserData()):?>
                             <div class="notification__item <?= $notification->isSeenByUser() ? " seen" : '' ?>">
                                 <div class="marker">
-                                    <div class="pe pe-7s-shield"></div>
+                                    <div class="pe pe-7s-pen"></div>
                                 </div>
                                 <div class="notification__item__text">
-                                    <h3 class="notification__item__text__title">You reset the password</h3>
+                                    <h3 class="notification__item__text__title">You have updated your account details.</h3>
                                 </div>
                                 <div class="date">
                                     <i class="pe pe-7s-clock"></i>
@@ -40,10 +40,10 @@
                         <?php elseif ($notification->typeResetPassword()):?>
                             <div class="notification__item <?= $notification->isSeenByUser() ? " seen" : '' ?>">
                                 <div class="marker">
-                                    <div class="pe pe-7s-pen"></div>
+                                    <div class="pe pe-7s-shield"></div>
                                 </div>
                                 <div class="notification__item__text">
-                                    <h3 class="notification__item__text__title">You have updated your account details.</h3>
+                                    <h3 class="notification__item__text__title">You reset the password</h3>
                                 </div>
                                 <div class="date">
                                     <i class="pe pe-7s-clock"></i>

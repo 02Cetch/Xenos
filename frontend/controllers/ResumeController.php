@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use frontend\modules\notifications\models\Notifications;
 use Yii;
 use yii\data\Pagination;
 use frontend\models\Resume;
@@ -72,10 +73,7 @@ class ResumeController extends \yii\web\Controller
 
         $userData = $resume->getUserData();
 
-//        echo '<pre>';
-//            print_r($userData);
-//        echo '</pre>';die;
-
+        $notifications = new Notifications();
 
         /* @var $currentUser User*/
         $currentUser = Yii::$app->user->identity;
@@ -84,7 +82,8 @@ class ResumeController extends \yii\web\Controller
             'resume' => $resume,
             'userData' => $userData,
             'user' => $user,
-            'currentUser' => $currentUser
+            'currentUser' => $currentUser,
+            'notifications' => $notifications,
         ]);
     }
 

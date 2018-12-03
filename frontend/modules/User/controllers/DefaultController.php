@@ -2,6 +2,8 @@
 
 namespace frontend\modules\User\controllers;
 
+use frontend\models\User;
+use frontend\modules\notifications\models\Notifications;
 use yii\web\Controller;
 use Yii;
 use yii\base\InvalidParamException;
@@ -19,6 +21,8 @@ use frontend\modules\User\models\SignupForm;
  */
 class DefaultController extends Controller
 {
+    const NOTIFICATION_TYPE_RESET_PASSWORD = 3;
+
     /**
      * Renders the index view for the module
      * @return string
@@ -165,9 +169,13 @@ class DefaultController extends Controller
         } catch (InvalidParamException $e) {
             throw new BadRequestHttpException($e->getMessage());
         }
+        $user = User::findByPasswordResetToken($token);
 
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
             Yii::$app->session->setFlash('success', 'New password saved.');
+            $notifications = new Notifications();
+
+            $notifications->createNotification(null, $user->getId(), null, self::NOTIFICATION_TYPE_RESET_PASSWORD );
 
             return $this->goHome();
         }

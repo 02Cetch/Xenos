@@ -94,6 +94,62 @@ class Notifications extends \yii\db\ActiveRecord
 
         $notification->save(true);
     }
+
+    /**
+     * @param null | int $senderId
+     * @param int $receiverId
+     * @param null | int $resumeId
+     * @param int $type
+     * @return bool
+     * Метод для создания уведомления
+     *
+     */
+    public function createNotification($senderId = null, $receiverId, $resumeId = null, $type)
+    {
+            /* @var $redis Connection */
+            $redis = Yii::$app->redis;
+
+        if ($type === self::NOTIFICATION_TYPE_LIKED_RESUME_BY_COMPANY) {
+
+            $key = "notification:{$this->getId()}:liked";
+
+            if (!$redis->sismember($key, $senderId)) {
+
+                $redis->sadd($key, $senderId);
+
+                $notification = $this;
+
+                $notification->sender_id = $senderId;
+                $notification->receiver_id = $receiverId;
+                $notification->resume_id = $resumeId;
+                $notification->type = $type;
+                $notification->created_at = $time = time();
+                $notification->seen = self::NOTIFICATION_NOT_SEEN_BY_USER;
+
+                return $notification->save(false);
+
+            }
+        }else {
+            $notification = $this;
+
+            $notification->sender_id = $senderId;
+            $notification->receiver_id = $receiverId;
+            $notification->resume_id = $resumeId;
+            $notification->type = $type;
+            $notification->created_at = $time = time();
+            $notification->seen = self::NOTIFICATION_NOT_SEEN_BY_USER;
+
+            return $notification->save(false);
+        }
+    }
+
+    public function isAlreadyNotify($id)
+    {
+        /* @var $redis Connection */
+        $redis = Yii::$app->redis;
+
+        return $redis->sismember("notification:{$this->id}:liked", $id);
+    }
     /**
      *
      * @return bool
@@ -135,7 +191,13 @@ class Notifications extends \yii\db\ActiveRecord
         }
         return false;
     }
-
+    /**
+     * {@inheritdoc}
+     */
+    public function getId()
+    {
+        return $this->getPrimaryKey();
+    }
     /**
      * {@inheritdoc}
      */

@@ -15,6 +15,9 @@
     $this->registerJsFile('@web/js/reports.js', [
         'depends' => JqueryAsset::className(),
     ]);
+    $this->registerJsFile('@web/js/notification.js', [
+        'depends' => JqueryAsset::className(),
+    ]);
 
 ?>
 
@@ -46,7 +49,13 @@
                         <?php if(!Yii::$app->user->isGuest): ?>
                             <?php if($resume || !$resume->isUserResume($currentUser)): ?>
                                 <div class="user__profile__container__actions">
-                                    <a href="#" class="user__profile__container__contact resume__report button__to accent">Contact</a>
+                                    <?php if($currentUser->isCompany()): ?>
+                                        <?php if(!$notifications->isAlreadyNotify($currentUser->getId())): ?>
+                                            <a href="#" class="user__profile__container__contact resume__report button__to accent" receiver-id="<?php echo $userData->id ?>" resume-id="<?php echo $resume->id?>">Contact</a>
+                                        <?php else: ?>
+                                            <a href="#" class="user__profile__container__contact resume__report button__to accent disabled"">Success</a>
+                                        <?php endif;?>
+                                    <?php endif;?>
                                     <?php if(!$resume->isReported($currentUser)): ?>
                                         <a href="#" class="user__profile__container__report button__to grey reverse" data-id="<?php echo $resume->id ?>">Report</a>
                                     <?php else: ?>

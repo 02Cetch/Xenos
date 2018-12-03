@@ -2,6 +2,7 @@
 
 namespace frontend\modules\User\controllers;
 
+use frontend\modules\notifications\models\Notifications;
 use yii\data\Pagination;
 use frontend\modules\User\models\EditForm;
 use Yii;
@@ -14,6 +15,7 @@ use frontend\modules\user\models\forms\PictureForm;
 
 class ProfileController extends Controller
 {
+    const NOTIFICATION_TYPE_UPDATE_USER_DATA = 2;
 
     /**
      * экшен, для показа страницы профиля пользователя
@@ -68,10 +70,14 @@ class ProfileController extends Controller
         } else {
             $model->scenario = EditForm::SCENARIO_COMPANY_UPDATE;
         }
+
+        $notifications = new Notifications();
+
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
                 if ($model->load(Yii::$app->request->post())) {
                     if($model->save()) {
+                        $notifications->createNotification(null, $currentUser->getId(), null, $type = self::NOTIFICATION_TYPE_UPDATE_USER_DATA);
                         Yii::$app->getSession()->setFlash('Success', 'Your account information updated');
                         $this->redirect('/profile/view/' . $currentUser->id);
                     }
