@@ -91,10 +91,6 @@ class ProfileController extends Controller
             'modelPicture' => $modelPicture,
         ]);
     }
-    public function actionEditAccount()
-    {
-        echo 'Hello';
-    }
     /**
      * Handle profile image upload via ajax request
      */

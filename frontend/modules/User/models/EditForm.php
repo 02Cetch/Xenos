@@ -17,6 +17,8 @@ class EditForm extends Model
     public $email;
     public $full_name;
     public $description;
+    public $phone;
+    public $address;
     public $years;
 
 
@@ -24,11 +26,11 @@ class EditForm extends Model
     {
 //        $scenarios = parent::scenarios();
 //        $scenarios[self::SCENARIO_USER_UPDATE] = ['email', 'full_name', 'description','years'];
-//        $scenarios[self::SCENARIO_COMPANY_UPDATE] = ['email', 'description'];
+//        $scenarios[self::SCENARIO_COMPANY_UPDATE] = ['email', 'description', 'phone', 'address'];
 //        return $scenarios;
         return [
             self::SCENARIO_USER_UPDATE => ['email', 'full_name', 'description','years'],
-            self::SCENARIO_COMPANY_UPDATE => ['email', 'description'],
+            self::SCENARIO_COMPANY_UPDATE => ['email', 'description', 'phone', 'address'],
         ];
     }
 
@@ -65,6 +67,7 @@ class EditForm extends Model
 
         $user->isUniqueEmail($email);
     }
+
     public function save()
     {
 
@@ -77,6 +80,9 @@ class EditForm extends Model
             $user->full_name = isset($this->full_name) ? $this->full_name : null;
             $user->description = isset($this->description) ? $this->description : null;
             $user->years = isset($this->years) ? $this->years : null;
+            $user->phone = isset($this->phone) ? $this->phone : null;
+            $user->address = isset($this->address) ? $this->address : null;
+
             $user->updated_at = time();
 
             if($user->save(false)) {

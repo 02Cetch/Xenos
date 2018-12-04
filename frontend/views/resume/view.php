@@ -51,7 +51,7 @@
                                 <div class="user__profile__container__actions">
                                     <?php if($currentUser->isCompany()): ?>
                                         <?php if(!$notifications->isAlreadyNotify($currentUser->getId())): ?>
-                                            <a href="#" class="user__profile__container__contact resume__report button__to accent" receiver-id="<?php echo $userData->id ?>" resume-id="<?php echo $resume->id?>">Contact</a>
+                                            <a href="#" class="user__profile__container__contact resume__report button__to accent" data-id="<?php echo $resume->id ?>"">Contact</a>
                                         <?php else: ?>
                                             <a href="#" class="user__profile__container__contact resume__report button__to accent disabled"">Success</a>
                                         <?php endif;?>

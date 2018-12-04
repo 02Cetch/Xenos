@@ -23,7 +23,7 @@ use yii\web\IdentityInterface;
  * @property string $about
  * @property integer $type
  * @property string $nickname
- * @property string $phone
+ * @property int $phone
  * @property string $address
  * @property integer $account_type
  * @property integer $year
@@ -59,6 +59,25 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
     /**
+     * @return \yii\db\ActiveQuery
+     *
+     * связываем таблицы User и Resume по ключу
+     */
+    public function getResumes()
+    {
+        return $this->hasMany(Resume::class, ['user_id' => 'id']);
+    }
+    /**
+     * @return \yii\db\ActiveQuery
+     *
+     * связываем таблицы User и Vacancy по ключу
+     */
+    public function getVacancies()
+    {
+        return $this->hasMany(Vacancy::class, ['user_id' => 'id']);
+    }
+
+    /**
      * @param $id
      * @return array|null|ActiveRecord
      *
@@ -93,25 +112,12 @@ class User extends ActiveRecord implements IdentityInterface
 
         return $redis->sismember("user:{$this->id}:reports", $user->getId());
     }
-    /**
-     * @return \yii\db\ActiveQuery
-     *
-     * связываем таблицы User и Resume по ключу
-     */
-    public function getResumes()
-    {
-        return $this->hasMany(Resume::class, ['user_id' => 'id']);
-    }
-    /**
-     * @return \yii\db\ActiveQuery
-     *
-     * связываем таблицы User и Vacancy по ключу
-     */
-    public function getVacancies()
-    {
-        return $this->hasMany(Vacancy::class, ['user_id' => 'id']);
-    }
 
+    public function getUserByResumeId($id)
+    {
+        $resume = Resume::find()->where(['id' => $id])->one();
+        return $userId = $resume->user_id;
+    }
     /**
      * {@inheritdoc}
      */

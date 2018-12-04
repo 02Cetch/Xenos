@@ -9,6 +9,7 @@
 namespace frontend\modules\notifications\controllers;
 
 
+use frontend\models\User;
 use Yii;
 use yii\web\Response;
 use frontend\modules\notifications\models\Notifications;
@@ -52,11 +53,13 @@ class CreateController extends Controller
 
         $model = new Notifications();
 
+        $user = new User();
+
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         $senderId = $currentUser->getId();
-        $receiverId = Yii::$app->request->post('receiverId');
         $resumeId = Yii::$app->request->post('resumeId');
+        $receiverId = $user->getUserByResumeId($resumeId);
 
         if($currentUser->isCompany() && $model->createNotification($senderId, $receiverId, $resumeId, $type = self::NOTIFICATION_TYPE_LIKED_RESUME_BY_COMPANY)) {
             return [
