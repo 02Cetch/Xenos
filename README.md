@@ -12,6 +12,7 @@ Documentation is at [docs/guide/README.md](docs/guide/README.md).
 
 
 <h1>Sphinx Search Config</h1>
+<hr>
 ###########
 # Sources #
 ###########
