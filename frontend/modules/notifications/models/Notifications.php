@@ -192,20 +192,40 @@ class Notifications extends \yii\db\ActiveRecord
         return false;
     }
 
+    /**
+     * @param $date
+     * @return int
+     *
+     * удаление уведомлений, дата которых
+     * позже переданной
+     */
     public function deleteNotifications($date)
     {
 
         /* @var $redis Connection */
         $redis = Yii::$app->redis;
 
+        // находим уведомления, старше переданной даты
         $notifications = Notifications::find()->where(['<','created_at',$date])->all();
 
+        // проходтися по ним циклом
         foreach ($notifications as $notification) {
 
-            $resumeId = Resume::find()->where(['id' => $notification->resume_id])->one();
-            $resumeId = $resumeId->getId();
+            // проверяем тип уведомления
+            if($notification->type === self::NOTIFICATION_TYPE_LIKED_RESUME_BY_COMPANY) {
 
-            $redis->del("resume:{$resumeId}:liked");
+                // ищем id резюме
+                $resumeId = Resume::find()->where(['id' => $notification->resume_id])->one();
+                $resumeId = $resumeId->getId();
+
+                // ищем пользователя, который отправил уведомление
+                $userId = User::find()->where(['id' => $notification->sender_id])->one();
+                $userId = $userId->id;
+
+                // удаляем запись из множества в redis
+                $redis->srem("resume:{$resumeId}:liked", $userId);
+
+            }
         }
 
         return Notifications::deleteAll(['<','created_at',$date]);
