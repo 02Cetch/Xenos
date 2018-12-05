@@ -191,6 +191,25 @@ class Notifications extends \yii\db\ActiveRecord
         }
         return false;
     }
+
+    public function deleteNotifications($date)
+    {
+
+        /* @var $redis Connection */
+        $redis = Yii::$app->redis;
+
+        $notifications = Notifications::find()->where(['<','created_at',$date])->all();
+
+        foreach ($notifications as $notification) {
+
+            $resumeId = Resume::find()->where(['id' => $notification->resume_id])->one();
+            $resumeId = $resumeId->getId();
+
+            $redis->del("resume:{$resumeId}:liked");
+        }
+
+        return Notifications::deleteAll(['<','created_at',$date]);
+    }
     /**
      * {@inheritdoc}
      */

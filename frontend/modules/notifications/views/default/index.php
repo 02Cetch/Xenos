@@ -54,31 +54,17 @@
                     <?php $notification->setSeenByUser(); ?>
                 <?php endforeach; ?>
 
-<!--                <div class="notification__item seen">-->
-<!--                    <div class="marker">-->
-<!--                        <div class="pe pe-7s-shield"></div>-->
-<!--                    </div>-->
-<!--                    <div class="notification__item__text">-->
-<!--                        <h3 class="notification__item__text__title">You reset the password</h3>-->
-<!--                    </div>-->
-<!--                    <div class="date">-->
-<!--                        <i class="pe pe-7s-clock"></i>-->
-<!--                        <span class="datetime">30 nov 2018 15:30</span>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="notification__item seen">-->
-<!--                    <div class="marker">-->
-<!--                        <div class="pe pe-7s-pen"></div>-->
-<!--                    </div>-->
-<!--                    <div class="notification__item__text">-->
-<!--                        <h3 class="notification__item__text__title">You have updated your account details.</h3>-->
-<!--                    </div>-->
-<!--                    <div class="date">-->
-<!--                        <i class="pe pe-7s-clock"></i>-->
-<!--                        <span class="datetime">30 nov 2018 15:30</span>-->
-<!--                    </div>-->
                 </div>
             </div>
         </div>
     </div>
 </section>
+<?php if(!$notifications): ?>
+<section class="notification__statement">
+    <div class="notification__statement__wrapper">
+        <i class="pe pe-7s-leaf"></i>
+        <h2 class="notification__statement__title">Notifications are deleted every 30 days.</h2>
+        <p class="notification__statement__descr">This is done to limit electricity costs.</p>
+    </div>
+</section>
+<?php endif; ?>

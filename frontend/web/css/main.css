@@ -601,19 +601,33 @@ section.user__profile .user__profile__container {
     section.user__profile .user__profile__container .user__profile__container__info .user__profile__container__edit, section.user__profile .user__profile__container .user__profile__container__info .user__profile__container__report, section.user__profile .user__profile__container .user__profile__container__info .user__profile__container__contact {
       margin-top: 50px;
       padding: 1em; }
-section.notification__container .notifications .notification__item {
-  margin-bottom: 60px;
-  text-align: center; }
-  section.notification__container .notifications .notification__item .marker .pe {
+section.notification__container {
+  margin-bottom: 350px; }
+  section.notification__container .notifications .notification__item {
+    margin-bottom: 60px;
+    text-align: center; }
+    section.notification__container .notifications .notification__item .marker .pe {
+      font-size: 50px; }
+    section.notification__container .notifications .notification__item .notification__item__text .notification__item__text__title {
+      font-family: "BebasNeue", Serif;
+      font-size: 30px; }
+    section.notification__container .notifications .notification__item .date {
+      font-family: "BebasNeue", Serif;
+      margin: auto 0; }
+    section.notification__container .notifications .notification__item.seen {
+      opacity: .7; }
+section.notification__statement {
+  width: 100%;
+  background: #3a8037;
+  color: #fff;
+  font-family: "Montserrat", Serif;
+  text-align: center;
+  margin-bottom: 350px; }
+  section.notification__statement .notification__statement__wrapper {
+    padding-top: 50px;
+    padding-bottom: 50px; }
+  section.notification__statement i.pe {
     font-size: 50px; }
-  section.notification__container .notifications .notification__item .notification__item__text .notification__item__text__title {
-    font-family: "BebasNeue", Serif;
-    font-size: 30px; }
-  section.notification__container .notifications .notification__item .date {
-    font-family: "BebasNeue", Serif;
-    margin: auto 0; }
-  section.notification__container .notifications .notification__item.seen {
-    opacity: .7; }
 
 footer {
   margin-top: 150px;
