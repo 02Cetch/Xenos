@@ -38,6 +38,9 @@ class Notifications extends \yii\db\ActiveRecord
 
     /**
      * Видел ли это уведомление пользователь
+     *
+     * self::NOTIFICATION_NOT_SEEN_BY_USER
+     * при котором пользователь оповещается о смене пароля
      */
     const NOTIFICATION_NOT_SEEN_BY_USER = 0;
     const NOTIFICATION_IS_SEEN_BY_USER = 1;
@@ -58,16 +61,34 @@ class Notifications extends \yii\db\ActiveRecord
         return $this->hasOne(Resume::class, ['id' => 'resume_id']);
     }
 
+    /**
+     * @param $userId
+     * @return int|string
+     *
+     * подсчитывает количество непросмотренных уведомлений у пользователя
+     */
     public static function count($userId)
     {
-        return Notifications::find()->where(['receiver_id' => $userId])->andWhere(['seen' => 0])->count();
+        return Notifications::find()->where(['receiver_id' => $userId])->andWhere(['seen' => self::NOTIFICATION_NOT_SEEN_BY_USER])->count();
     }
 
+    /**
+     * @param $id
+     * @return array|null|\yii\db\ActiveRecord
+     *
+     * возвращает пользователя по id
+     */
     public function getUserById($id)
     {
         return User::find()->where(['id' => $id])->one();
     }
 
+    /**
+     * @param User $user
+     * @return array|\yii\db\ActiveRecord[]
+     *
+     * возвращает уведомления пользователя
+     */
     public function getNotifications(User $user)
     {
         $model = new Notifications();
@@ -75,6 +96,11 @@ class Notifications extends \yii\db\ActiveRecord
         return $model->find()->where(['receiver_id' => $user->id])->orderBy(['created_at' => SORT_DESC])->all();
     }
 
+    /**
+     * @return bool
+     *
+     * Проверяем, видел ли пользователь уведомление
+     */
     public function isSeenByUser()
     {
         if ($this->seen === self::NOTIFICATION_IS_SEEN_BY_USER) {
@@ -82,6 +108,12 @@ class Notifications extends \yii\db\ActiveRecord
         }
         return false;
     }
+
+    /**
+     * @return bool
+     *
+     * устанавливаем значение видел ли пользователь уведомление на IS_SEEN_BY_USER
+     */
     public function setSeenByUser()
     {
         if ($this->seen === self::NOTIFICATION_IS_SEEN_BY_USER) {
@@ -109,14 +141,21 @@ class Notifications extends \yii\db\ActiveRecord
             /* @var $redis Connection */
             $redis = Yii::$app->redis;
 
+        // если тип уведомления - LIKED_RESUME_BY_COMPANY
         if ($type === self::NOTIFICATION_TYPE_LIKED_RESUME_BY_COMPANY) {
 
             $key = "resume:{$resumeId}:liked";
 
+            // проверяем, НЕ отправила ли компания
+            // уже уведомление пользователю
             if (!$redis->sismember($key, $senderId)) {
 
+                // добавляем в множество значение - id компании
+                // по ключу - id резюме
                 $redis->sadd($key, $senderId);
 
+
+                // добавляем запись в таблицу mysql
                 $notification = $this;
 
                 $notification->sender_id = $senderId;
@@ -130,6 +169,9 @@ class Notifications extends \yii\db\ActiveRecord
 
             }
         }else {
+            // если тип уведомления другой, то
+
+            // просто добавляем запись в таблицу mysql
             $notification = $this;
 
             $notification->sender_id = $senderId;
@@ -143,6 +185,13 @@ class Notifications extends \yii\db\ActiveRecord
         }
     }
 
+    /**
+     * @param $id
+     * @param $resumeId
+     * @return mixed
+     *
+     * если пользователь уже оповещён, то вернёт  true
+     */
     public function isAlreadyNotify($id, $resumeId)
     {
         /* @var $redis Connection */

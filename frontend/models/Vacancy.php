@@ -48,7 +48,12 @@ class Vacancy extends \yii\db\ActiveRecord
     {
         return $this->find()->where(['id' => $id])->one();
     }
-
+    /**
+     * @param User $user
+     * @return bool
+     *
+     * Пожаловаться на вакансию
+     */
     public function report(User $user)
     {
         /* @var $redis Connection */

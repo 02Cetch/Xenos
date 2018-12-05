@@ -89,7 +89,12 @@ class User extends ActiveRecord implements IdentityInterface
 
         return $user = $model->find()->where(['id' => $id])->one();
     }
-
+    /**
+     * @param User $user
+     * @return bool
+     *
+     * Пожаловаться на пользователя
+     */
     public function report(User $user)
     {
         /* @var $redis Connection */
