@@ -50,7 +50,7 @@
                             <?php if($resume || !$resume->isUserResume($currentUser)): ?>
                                 <div class="user__profile__container__actions">
                                     <?php if($currentUser->isCompany()): ?>
-                                        <?php if(!$notifications->isAlreadyNotify($currentUser->getId())): ?>
+                                        <?php if(!$notifications->isAlreadyNotify($currentUser->getId(), $resume->getId())): ?>
                                             <a href="#" class="user__profile__container__contact resume__report button__to accent" data-id="<?php echo $resume->id ?>"">Contact</a>
                                         <?php else: ?>
                                             <a href="#" class="user__profile__container__contact resume__report button__to accent disabled"">Success</a>
@@ -59,7 +59,7 @@
                                     <?php if(!$resume->isReported($currentUser)): ?>
                                         <a href="#" class="user__profile__container__report button__to grey reverse" data-id="<?php echo $resume->id ?>">Report</a>
                                     <?php else: ?>
-                                        <a href="#" class="user__profile__container__report button__to grey reverse disabled" data-id="<?php echo $resume->id ?>">User has been reported</a>
+                                        <a href="#" class="user__profile__container__report button__to grey reverse disabled" data-id="<?php echo $resume->id ?>">Resume has been reported</a>
                                     <?php endif; ?>
                                 </div>
                             <?php endif; ?>

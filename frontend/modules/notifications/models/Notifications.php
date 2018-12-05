@@ -111,7 +111,7 @@ class Notifications extends \yii\db\ActiveRecord
 
         if ($type === self::NOTIFICATION_TYPE_LIKED_RESUME_BY_COMPANY) {
 
-            $key = "notification:{$this->getId()}:liked";
+            $key = "resume:{$resumeId}:liked";
 
             if (!$redis->sismember($key, $senderId)) {
 
@@ -143,12 +143,12 @@ class Notifications extends \yii\db\ActiveRecord
         }
     }
 
-    public function isAlreadyNotify($id)
+    public function isAlreadyNotify($id, $resumeId)
     {
         /* @var $redis Connection */
         $redis = Yii::$app->redis;
 
-        return $redis->sismember("notification:{$this->id}:liked", $id);
+        return $redis->sismember("resume:{$resumeId}:liked", $id);
     }
     /**
      *

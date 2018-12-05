@@ -30,18 +30,20 @@
             <div class="row">
                 <div class="col-md-12">
                     <h1 class="vacancy__title"><?php echo $vacancy->title ?></h1>
+                    <p class="vacancy__payday"><?php echo $vacancy->salary ?>$/month</p>
+                    <p class="user__createtime"><i class="pe pe-7s-clock"></i> <?php echo Yii::$app->formatter->asDateTime($vacancy->created_at, 'php:Y-m-d H:i:s') ?></p>
+                    <p class="vacancy__company"><a href="<?php echo Url::to(['/user/profile/view/', 'id' => $userData->id]) ?>"><?php echo $userData->username ?></a></p>
+                </div>
+                <div class="col-md-offset-7 col-md-5">
                     <?php if(!Yii::$app->user->isGuest):?>
                         <?php if($vacancy || !$vacancy->isUserVacancy($currentUser)): ?>
                             <?php if(!$vacancy->isReported($currentUser)): ?>
                                 <a href="#" class="vacancy__report button__to grey reverse" data-id="<?php echo $vacancy->id ?>">Report</a>
                             <?php else: ?>
-                                <a href="#" class="vacancy__report button__to grey reverse disabled" data-id="<?php echo $vacancy->id ?>">User has been reported</a>
+                                <a href="#" class="vacancy__report button__to grey reverse disabled" data-id="<?php echo $vacancy->id ?>">Vacancy has been reported</a>
                             <?php endif; ?>
                         <?php endif; ?>
                     <?php endif; ?>
-                    <p class="vacancy__payday"><?php echo $vacancy->salary ?>$/month</p>
-                    <p class="user__createtime"><i class="pe pe-7s-clock"></i> <?php echo Yii::$app->formatter->asDateTime($vacancy->created_at, 'php:Y-m-d H:i:s') ?></p>
-                    <p class="vacancy__company"><a href="<?php echo Url::to(['/user/profile/view/', 'id' => $userData->id]) ?>"><?php echo $userData->username ?></a></p>
                 </div>
             </div>
         </div>

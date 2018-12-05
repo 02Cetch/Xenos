@@ -83,22 +83,23 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-
-                <?php if($user->isUserById($user->id)): ?>
-                    <h2 class="user__resumes__title">Resumes:</h2>
-                    <br>
-                    <?php if($userPosts) :?>
-                        <?php foreach ($userPosts as $item):?>
-                        <p><a href="<?php echo \yii\helpers\Url::to(['/resume/view/', 'id' => $item['id']])?>" class="user__resumes__item"><?php echo $item['title'] ?></a></p>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
-                    <?php else: ?>
-                    <h2 class="user__resumes__title">Vacancies:</h2>
-                    <br>
-                    <?php if($userPosts) :?>
-                        <?php foreach ($userPosts as $item):?>
-                            <p><a href="<?php echo \yii\helpers\Url::to(['/vacancy/view/', 'id' => $item['id']])?>" class="user__resumes__item"><?php echo $item['title'] ?></a></p>
-                        <?php endforeach; ?>
+                <?php if($userPosts):?>
+                    <?php if($user->isUserById($user->id)): ?>
+                        <h2 class="user__resumes__title">Resumes:</h2>
+                        <br>
+                        <?php if($userPosts) :?>
+                            <?php foreach ($userPosts as $item):?>
+                            <p><a href="<?php echo \yii\helpers\Url::to(['/resume/view/', 'id' => $item['id']])?>" class="user__resumes__item"><?php echo $item['title'] ?></a></p>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                        <?php else: ?>
+                        <h2 class="user__resumes__title">Vacancies:</h2>
+                        <br>
+                        <?php if($userPosts) :?>
+                            <?php foreach ($userPosts as $item):?>
+                                <p><a href="<?php echo \yii\helpers\Url::to(['/vacancy/view/', 'id' => $item['id']])?>" class="user__resumes__item"><?php echo $item['title'] ?></a></p>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     <?php endif; ?>
                 <?php endif; ?>
             </div>

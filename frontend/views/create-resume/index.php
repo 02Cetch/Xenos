@@ -44,7 +44,7 @@
 
 
                 <div class="form-group">
-                        <?= Html::submitButton('Edit', ['class' => 'button__to accent button__sumbit', 'name' => 'signup-button']) ?>
+                        <?= Html::submitButton('Create', ['class' => 'button__to accent button__sumbit', 'name' => 'signup-button']) ?>
                     </div>
 
                     <?php ActiveForm::end(); ?>

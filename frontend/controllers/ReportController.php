@@ -84,7 +84,7 @@ class ReportController extends \yii\web\Controller
         if($vacancy->report($currentUser)) {
             return [
                 'success' => true,
-                'text' => 'User Reported',
+                'text' => 'Vacancy Reported',
             ];
         }
         return [
@@ -121,7 +121,7 @@ class ReportController extends \yii\web\Controller
         if($resume->report($currentUser)) {
             return [
                 'success' => true,
-                'text' => 'User Reported',
+                'text' => 'Resume Reported',
             ];
         }
         return [
