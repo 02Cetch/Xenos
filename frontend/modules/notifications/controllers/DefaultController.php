@@ -2,6 +2,7 @@
 
 namespace frontend\modules\notifications\controllers;
 
+use Yii;
 use frontend\models\User;
 use frontend\modules\notifications\models\Notifications;
 use yii\web\Controller;
@@ -17,6 +18,9 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
         /* @var $currentUser User */
         $currentUser = \Yii::$app->user->identity;
 
