@@ -31,7 +31,7 @@
                         <?php if($userData->full_name): ?>
                             <h1 class="user__profile__container__fullname"><a href="<?php echo Url::to(['/user/profile/view', 'id' => $userData->id]) ?>"><?php echo $userData->full_name; ?></a></h1>
                         <?php elseif ($userData->username):?>
-                            <h1 class="user__profile__container__fullname"><?php echo $userData->username; ?></h1>
+                            <h1 class="user__profile__container__fullname"><a href="<?php echo Url::to(['/user/profile/view', 'id' => $userData->id]) ?>"><?php echo $userData->username; ?></a></h1>
                         <?php endif; ?>
 
                         <?php if($userData->years): ?>

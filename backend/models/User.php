@@ -34,7 +34,9 @@ class User extends \yii\db\ActiveRecord
     const USER_ACCOUNT = 1;
     const COMPANY_ACCOUNT = 2;
 
+
     const DEFAULT_IMAGE = '/images/avatar.png';
+    const DEFAULT_COMPANY_IMAGE = '/images/company_logo.png';
 
     /**
      * {@inheritdoc}
@@ -88,12 +90,28 @@ class User extends \yii\db\ActiveRecord
     {
         return User::find()->where('reports > 0')->orderBy('reports DESC');
     }
+
     public function getImage()
     {
         if($this->picture) {
             return Yii::$app->storage->getFile($this->picture);
+        }elseif ($this->isCompany())
+        {
+            return self::DEFAULT_COMPANY_IMAGE;
         }
+
         return self::DEFAULT_IMAGE;
+    }
+
+    public function approve()
+    {
+        /* @var $redis Connection */
+        $redis = Yii::$app->redis;
+        $key = "user:{$this->id}:reports";
+        $redis->del($key);
+
+        $this->reports = 0;
+        return $this->save(false, ['reports']);
     }
 
     /**

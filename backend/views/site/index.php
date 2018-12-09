@@ -2,7 +2,7 @@
 
 /* @var $this yii\web\View */
 
-$this->title = 'My Yii Application';
+$this->title = 'Admin Panel | Xenos';
 ?>
 <div class="site-index">
 
@@ -25,7 +25,7 @@ $this->title = 'My Yii Application';
                     ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
                     fugiat nulla pariatur.</p>
 
-                <p><a class="btn btn-default" href="<?php echo \yii\helpers\Url::to('user/manage')?>">Manage &raquo;</a></p>
+                <p><a class="btn btn-default" href="<?php echo \yii\helpers\Url::to('/user/manage')?>">Manage &raquo;</a></p>
             </div>
             <div class="col-lg-4">
                 <h2>Heading</h2>

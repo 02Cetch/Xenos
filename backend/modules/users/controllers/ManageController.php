@@ -43,7 +43,21 @@ class ManageController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+    /**
+     * экшен, который позволяет одобрять записи,
+     * на которые пожаловались пользователи
+     * @param $id
+     * @return \yii\web\Response
+     */
+    public function actionApprove($id)
+    {
+        $user = $this->findModel($id);
 
+        if($user->approve()) {
+            Yii::$app->session->setFlash('success', 'Post marked as appropriate');
+            return $this->redirect(['index']);
+        }
+    }
     /**
      * Displays a single user model.
      * @param integer $id

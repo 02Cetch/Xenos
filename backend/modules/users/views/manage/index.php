@@ -6,7 +6,7 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'User Reports';
+$this->title = 'User Reports | Xenos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-index">
@@ -34,8 +34,6 @@ $this->params['breadcrumbs'][] = $this->title;
 //            'password_hash',
 //            'password_reset_token',
             //'status',
-            //'created_at',
-            //'updated_at',
             //'nickname:ntext',
             //'full_name:ntext',
             //'phone:ntext',
@@ -50,6 +48,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Html::img($user->getImage(), ['width' => '130px']);
                 }
             ],
+            'created_at:datetime',
+            'updated_at:datetime',
             'reports',
 
             [
