@@ -41,7 +41,13 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+
             ],
+        ],
+    ],
+    'modules' => [
+        'user' => [
+            'class' => 'backend\modules\users\Module',
         ],
     ],
     'params' => $params,
