@@ -9,9 +9,9 @@ $this->title = 'Admin Panel | Xenos';
     <div class="jumbotron">
         <h1>Congratulations!</h1>
 
-        <p class="lead">You have successfully created your Yii-powered application.</p>
+        <p class="lead">You have successfully logged to admin panel!</p>
 
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
+
     </div>
 
     <div class="body-content">
@@ -60,7 +60,7 @@ $this->title = 'Admin Panel | Xenos';
                         ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
                         fugiat nulla pariatur.</p>
 
-                    <p><a class="btn btn-default" href="<?php echo \yii\helpers\Url::to('/role/manage')?>">Manage &raquo;</a></p>
+                    <p><a class="btn btn-default" href="<?php echo \yii\helpers\Url::to('/user/all')?>">Manage &raquo;</a></p>
                 </div>
             </div>
         </div>
