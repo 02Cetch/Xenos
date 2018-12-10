@@ -38,14 +38,30 @@ $this->title = 'Admin Panel | Xenos';
                 <p><a class="btn btn-default" href="<?php echo \yii\helpers\Url::to('/resume/manage')?>">Manage &raquo;</a></p>
             </div>
             <div class="col-lg-4">
-                <h2>Heading</h2>
+                <h2>Vacancy Managing</h2>
 
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
                     dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
                     ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
                     fugiat nulla pariatur.</p>
 
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
+                <p><a class="btn btn-default" href="<?php echo \yii\helpers\Url::to('/vacancy/manage')?>">Manage &raquo;</a></p>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <br><br><br><br>
+                <div class="col-lg-12">
+                    <h2>Roles Managing</h2>
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+                        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                        ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                        fugiat nulla pariatur.</p>
+
+                    <p><a class="btn btn-default" href="<?php echo \yii\helpers\Url::to('/role/manage')?>">Manage &raquo;</a></p>
+                </div>
             </div>
         </div>
 

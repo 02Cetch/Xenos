@@ -110,6 +110,14 @@ class User extends ActiveRecord implements IdentityInterface
             return $this->save(false, ['reports']);
         }
     }
+    public static function returnUserAccountType()
+    {
+        return self::USER_ACCOUNT;
+    }
+    public static function returnCompanyAccountType()
+    {
+        return self::COMPANY_ACCOUNT;
+    }
     public function isReported(User $user)
     {
         /* @var $redis Connection */

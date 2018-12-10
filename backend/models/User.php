@@ -3,7 +3,7 @@
 namespace backend\models;
 
 use Yii;
-
+use yii\helpers\ArrayHelper;
 /**
  * This is the model class for table "user".
  *
@@ -38,6 +38,12 @@ class User extends \yii\db\ActiveRecord
     const DEFAULT_IMAGE = '/images/avatar.png';
     const DEFAULT_COMPANY_IMAGE = '/images/company_logo.png';
 
+
+    const ROLE_ADMIN = 'admin';
+    const ROLE_MODERATOR = 'moderator';
+
+    public $roles;
+
     /**
      * {@inheritdoc}
      */
@@ -46,22 +52,67 @@ class User extends \yii\db\ActiveRecord
         return 'user';
     }
 
-//    /**
-//     * {@inheritdoc}
-//     */
-//    public function rules()
-//    {
-//        return [
-//            [['username', 'auth_key', 'password_hash', 'email', 'created_at', 'updated_at', 'account_type'], 'required'],
-//            [['status', 'created_at', 'updated_at', 'account_type', 'years', 'reports'], 'integer'],
-//            [['nickname', 'full_name', 'phone', 'address', 'description', 'picture'], 'string'],
-//            [['username', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
-//            [['auth_key'], 'string', 'max' => 32],
-//            [['username'], 'unique'],
-//            [['email'], 'unique'],
-//            [['password_reset_token'], 'unique'],
-//        ];
-//    }
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            ['roles', 'safe'],
+            ['status', 'default', 'value' => self::STATUS_ACTIVE],
+            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+        ];
+    }
+
+    public function __construct()
+    {
+        $this->on(self::EVENT_AFTER_UPDATE, [$this, 'saveRoles']);
+    }
+    /**
+     * Revoke old roles and assign new if any
+     */
+    public function saveRoles()
+    {
+        Yii::$app->authManager->revokeAll($this->getId());
+
+
+        if (is_array($this->roles)) {
+
+            foreach ($this->roles as $roleName) {
+                if ($role = Yii::$app->authManager->getRole($roleName)) {
+                    Yii::$app->authManager->assign($role, $this->getId());
+                }
+            }
+        }
+    }
+    /**
+     * Populate roles attribute with data from RBAC after record loaded from DB
+     */
+    public function afterFind()
+    {
+        $this->roles = $this->getRoles();
+    }
+
+    /**
+     * Get user roles from RBAC
+     * @return array
+     */
+    public function getRoles()
+    {
+        $roles = Yii::$app->authManager->getRolesByUser($this->getId());
+
+        return ArrayHelper::getColumn($roles, 'name', false);
+    }
+    /**
+     * @return array
+     */
+    public function getRolesDropdown()
+    {
+        return [
+            self::ROLE_ADMIN => 'Admin',
+            self::ROLE_MODERATOR => 'Moderator',
+        ];
+    }
     /**
      * @return bool
      * Проверяет, является ли тип аккаунта пользователя - User
@@ -113,7 +164,14 @@ class User extends \yii\db\ActiveRecord
         $this->reports = 0;
         return $this->save(false, ['reports']);
     }
-
+    public static function returnUserAccountType()
+    {
+        return self::USER_ACCOUNT;
+    }
+    public static function returnCompanyAccountType()
+    {
+        return self::COMPANY_ACCOUNT;
+    }
     /**
      * {@inheritdoc}
      */
@@ -139,5 +197,19 @@ class User extends \yii\db\ActiveRecord
             'picture' => 'Picture',
             'reports' => 'Reports',
         ];
+    }
+    /**
+     * Generates "remember me" authentication key
+     */
+    public function generateAuthKey()
+    {
+        $this->auth_key = Yii::$app->security->generateRandomString();
+    }
+    /**
+     * {@inheritdoc}
+     */
+    public function getId()
+    {
+        return $this->getPrimaryKey();
     }
 }

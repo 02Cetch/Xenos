@@ -1,9 +1,9 @@
 <?php
 
-namespace backend\modules\vacancy\controllers;
+namespace backend\modules\users\controllers;
 
 use Yii;
-use backend\models\vacancy;
+use backend\models\user;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -11,9 +11,9 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 
 /**
- * ManageController implements the CRUD actions for vacancy model.
+ * AllController implements the CRUD actions for user model.
  */
-class ManageController extends Controller
+class AllController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -32,12 +32,7 @@ class ManageController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['index', 'view', 'approve'],
-                        'roles' => ['admin', 'moderator'],
-                    ],
-                    [
-                        'allow' => true,
-                        'actions' => ['delete', 'update'],
+                        'actions' => ['index', 'view', 'delete', 'update'],
                         'roles' => ['admin'],
                     ],
                 ],
@@ -46,36 +41,22 @@ class ManageController extends Controller
     }
 
     /**
-     * Lists all vacancy models.
+     * Lists all user models.
      * @return mixed
      */
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => vacancy::findReports(),
+            'query' => user::find(),
         ]);
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
         ]);
     }
-    /**
-     * экшен, который позволяет одобрять записи,
-     * на которые пожаловались пользователи
-     * @param $id
-     * @return \yii\web\Response
-     */
-    public function actionApprove($id)
-    {
-        $resume = $this->findModel($id);
 
-        if($resume->approve()) {
-            Yii::$app->session->setFlash('success', 'User marked as appropriate');
-            return $this->redirect(['index']);
-        }
-    }
     /**
-     * Displays a single vacancy model.
+     * Displays a single user model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -88,13 +69,13 @@ class ManageController extends Controller
     }
 
     /**
-     * Creates a new vacancy model.
+     * Creates a new user model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new vacancy();
+        $model = new user();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -106,11 +87,10 @@ class ManageController extends Controller
     }
 
     /**
-     * Updates an existing vacancy model.
+     * Updates an existing User model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
     {
@@ -118,15 +98,15 @@ class ManageController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->render('update', [
+                'model' => $model,
+            ]);
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
     }
 
     /**
-     * Deletes an existing vacancy model.
+     * Deletes an existing user model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -140,15 +120,15 @@ class ManageController extends Controller
     }
 
     /**
-     * Finds the vacancy model based on its primary key value.
+     * Finds the user model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return vacancy the loaded model
+     * @return user the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = vacancy::findOne($id)) !== null) {
+        if (($model = user::findOne($id)) !== null) {
             return $model;
         }
 
