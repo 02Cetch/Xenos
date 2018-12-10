@@ -1,23 +1,23 @@
-    <?php
-     /* @var $resume \frontend\models\Resume */
-     /* @var $userData \frontend\models\User */
-     /* @var $currentUser \frontend\models\User */
+<?php
+/* @var $resume \frontend\models\Resume */
+/* @var $userData \frontend\models\User */
+/* @var $currentUser \frontend\models\User */
 
-    use yii\helpers\Url;
-    use yii\helpers\Html;
-    use frontend\assets\AppAsset;
-    use yii\web\JqueryAsset;
+use yii\helpers\Url;
+use yii\helpers\Html;
+use frontend\assets\AppAsset;
+use yii\web\JqueryAsset;
 
-    $this->title = $resume->title . " | Xenos";
+$this->title = $resume->title . " | Xenos";
 
-    AppAsset::register($this);
+AppAsset::register($this);
 
-    $this->registerJsFile('@web/js/reports.js', [
-        'depends' => JqueryAsset::className(),
-    ]);
-    $this->registerJsFile('@web/js/notification.js', [
-        'depends' => JqueryAsset::className(),
-    ]);
+$this->registerJsFile('@web/js/reports.js', [
+    'depends' => JqueryAsset::className(),
+]);
+$this->registerJsFile('@web/js/notification.js', [
+    'depends' => JqueryAsset::className(),
+]);
 
 ?>
 
@@ -56,10 +56,14 @@
                                             <a href="#" class="user__profile__container__contact resume__report button__to accent disabled"">Success</a>
                                         <?php endif;?>
                                     <?php endif;?>
-                                    <?php if(!$resume->isReported($currentUser)): ?>
-                                        <a href="#" class="user__profile__container__report button__to grey reverse" data-id="<?php echo $resume->id ?>">Report</a>
+                                    <?php if($resume->user_id != $currentUser->getId()):?>
+                                        <?php if(!$resume->isReported($currentUser)): ?>
+                                            <a href="#" class="user__profile__container__report button__to grey reverse" data-id="<?php echo $resume->id ?>">Report</a>
+                                        <?php else: ?>
+                                            <a href="#" class="user__profile__container__report button__to grey reverse disabled" data-id="<?php echo $resume->id ?>">Resume has been reported</a>
+                                        <?php endif; ?>
                                     <?php else: ?>
-                                        <a href="#" class="user__profile__container__report button__to grey reverse disabled" data-id="<?php echo $resume->id ?>">Resume has been reported</a>
+                                        <a href="#" class="resume__delete button__to red reverse" data-id="<?php echo $resume->id ?>">Delete</a>
                                     <?php endif; ?>
                                 </div>
                             <?php endif; ?>

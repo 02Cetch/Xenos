@@ -134,12 +134,12 @@ $user = Yii::$app->user->identity;
         </div>
     </div>
 </footer>
-<div class="preloader__wrapper">
-    <div class="loading">
-        <div class="bounceball"></div>
-        <div class="text">LOADING</div>
-    </div>
-</div>
+<!--<div class="preloader__wrapper">-->
+<!--    <div class="loading">-->
+<!--        <div class="bounceball"></div>-->
+<!--        <div class="text">LOADING</div>-->
+<!--    </div>-->
+<!--</div>-->
 
 <?php $this->endBody() ?>
 </body>

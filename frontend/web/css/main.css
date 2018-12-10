@@ -260,6 +260,21 @@ a {
   -webkit-transition: all .5s;
   transition: all .5s;
   text-transform: uppercase; }
+  .button__to.red {
+    background: #d64763;
+    border: 1px solid #d64763; }
+    .button__to.red.reverse {
+      background: #fff;
+      border: 1px solid rgba(61, 61, 61, 0.5);
+      -webkit-transition: all .5s;
+      transition: all .5s;
+      color: #232323; }
+      .button__to.red.reverse:hover {
+        -webkit-transition: all .5s;
+        transition: all .5s;
+        background: #d64763;
+        color: #fff;
+        border: 1px solid #d64763; }
   .button__to.accent {
     background: #10c9c3; }
     .button__to.accent.reverse {

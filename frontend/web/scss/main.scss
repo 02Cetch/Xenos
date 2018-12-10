@@ -184,6 +184,22 @@ a {
     font-weight: 600;
     transition: all .5s;
     text-transform: uppercase;
+    &.red {
+      background: #d64763;
+      border: 1px solid #d64763;
+      &.reverse {
+        background: #fff;
+        border: 1px solid rgba(#3d3d3d, .5);
+        transition: all .5s;
+        color: #232323;
+        &:hover {
+          transition: all .5s;
+          background: #d64763;
+          color: #fff;
+          border: 1px solid #d64763;
+        }
+      }
+    }
     &.accent {
         background: $accent;
         &.reverse {

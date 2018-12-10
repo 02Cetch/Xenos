@@ -1,24 +1,24 @@
 <?php
-    /* @var $resume \frontend\models\Resume; */
-    /* @var $userData array */
-    /* @var $user \frontend\models\User */
-    /* @var $currentUser \frontend\models\User */
+/* @var $resume \frontend\models\Resume; */
+/* @var $userData array */
+/* @var $user \frontend\models\User */
+/* @var $currentUser \frontend\models\User */
 
-    use yii\helpers\Html;
-    use yii\helpers\Url;
-    use frontend\assets\AppAsset;
-    use yii\web\JqueryAsset;
-    AppAsset::register($this);
+use yii\helpers\Html;
+use yii\helpers\Url;
+use frontend\assets\AppAsset;
+use yii\web\JqueryAsset;
+AppAsset::register($this);
 
-    $this->registerJsFile('@web/js/reports.js', [
-        'depends' => JqueryAsset::className(),
-    ]);
+$this->registerJsFile('@web/js/reports.js', [
+    'depends' => JqueryAsset::className(),
+]);
 
-    $this->title = $vacancy->title . " | Xenos";
+$this->title = $vacancy->title . " | Xenos";
 ?>
 
 
-</header>
+    </header>
 
 <?php if(!$vacancy): ?>
     <h3 class="title">
@@ -37,12 +37,16 @@
                 <div class="col-md-offset-7 col-md-5">
                     <?php if(!Yii::$app->user->isGuest):?>
                         <?php if($vacancy || !$vacancy->isUserVacancy($currentUser)): ?>
-                            <?php if(!$vacancy->isReported($currentUser)): ?>
-                                <a href="#" class="vacancy__report button__to grey reverse" data-id="<?php echo $vacancy->id ?>">Report</a>
+                            <?php if($vacancy->user_id !=  $currentUser->getId()): ?>
+                                <?php if(!$vacancy->isReported($currentUser)): ?>
+                                        <a href="#" class="vacancy__report button__to grey reverse" data-id="<?php echo $vacancy->id ?>">Report</a>
+                                    <?php else: ?>
+                                        <a href="WW#" class="vacancy__report button__to grey reverse disabled" data-id="<?php echo $vacancy->id ?>">Vacancy has been reported</a>
+                                <?php endif; ?>
                             <?php else: ?>
-                                <a href="#" class="vacancy__report button__to grey reverse disabled" data-id="<?php echo $vacancy->id ?>">Vacancy has been reported</a>
+                                <a href="#" class="resume__report button__to red reverse" data-id="<?php echo $vacancy->id ?>">Delete</a>
                             <?php endif; ?>
-                        <?php endif; ?>
+                        <?php endif;?>
                     <?php endif; ?>
                 </div>
             </div>
