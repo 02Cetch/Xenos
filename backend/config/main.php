@@ -49,6 +49,12 @@ return [
         'user' => [
             'class' => 'backend\modules\users\Module',
         ],
+        'resume' => [
+            'class' => 'backend\modules\resume\Module',
+        ],
+        'vacancy' => [
+            'class' => 'backend\modules\vacancy\Module',
+        ],
     ],
     'params' => $params,
 ];

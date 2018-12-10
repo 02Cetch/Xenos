@@ -5,7 +5,6 @@ namespace frontend\controllers;
 use frontend\models\forms\CreateVacancyForm;
 
 use Yii;
-
 /**
  * Class CreateVacancyController
  * @package frontend\controllers
@@ -27,7 +26,7 @@ class CreateVacancyController extends \yii\web\Controller
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
                 if($model->save()) {
-                    Yii::$app->getSession()->setFlash('Success', 'Your account information updated');
+                    return Yii::$app->response->redirect(Url::to(['user/profile/view', 'id' => $currentUser->getId()]));
                 }
             }
         }

@@ -93,6 +93,7 @@ $user = Yii::$app->user->identity;
                                         $menuItems[] = ['label' => 'Login', 'url' => [Url::to(['/user/default/login'])],'options'=>['class'=>'navbar__list__item']];
                                     } else {
                                         $menuItems[] = ['label' => 'My page','options'=>['class'=>'navbar__list__item'], 'url' => [Url::to(['/user/profile/view/']), 'id' => Yii::$app->user->identity->getId()]];
+                                        $menuItems[] = ['label' => 'Notifications','options'=>['class'=>'navbar__list__item'], 'url' => [Url::to(['/notifications/default'])]];
                                         $menuItems[] = ['label' => $user->isUser() ? 'Create Resume' : 'Create Vacancy' , 'url' => [$user->isUser() ? '/create-resume/index' : '/create-vacancy/index'],'options'=>['class'=>'navbar__list__item']];
 
                                         $menuItems[] = '<li class="navbar__list__item">'

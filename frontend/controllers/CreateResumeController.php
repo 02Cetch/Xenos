@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use frontend\models\forms\CreateResumeForm;
 
 use Yii;
+use yii\helpers\Url;
 
 /**
  * Class CreateResumeController
@@ -31,7 +32,7 @@ class CreateResumeController extends \yii\web\Controller
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
                 if($model->save()) {
-                     Yii::$app->getSession()->setFlash('Success', 'Your account information updated');
+                    return Yii::$app->response->redirect(Url::to(['user/profile/view', 'id' => $currentUser->getId()]));
                 }
             }
         }

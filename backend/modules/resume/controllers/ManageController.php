@@ -1,16 +1,16 @@
 <?php
 
-namespace backend\modules\users\controllers;
+namespace backend\modules\resume\controllers;
 
 use Yii;
-use backend\models\user;
+use backend\models\resume;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * ManageController implements the CRUD actions for user model.
+ * ManageController implements the CRUD actions for resume model.
  */
 class ManageController extends Controller
 {
@@ -30,19 +30,20 @@ class ManageController extends Controller
     }
 
     /**
-     * Lists all user models.
+     * Lists all resume models.
      * @return mixed
      */
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => user::findReports(),
+            'query' => resume::findReports(),
         ]);
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
         ]);
     }
+
     /**
      * экшен, который позволяет одобрять записи,
      * на которые пожаловались пользователи
@@ -51,15 +52,15 @@ class ManageController extends Controller
      */
     public function actionApprove($id)
     {
-        $resume = $this->findModel($id);
+        $user = $this->findModel($id);
 
-        if($resume->approve()) {
-            Yii::$app->session->setFlash('success', 'User marked as appropriate');
+        if($user->approve()) {
+            Yii::$app->session->setFlash('success', 'Resume marked as appropriate');
             return $this->redirect(['index']);
         }
     }
     /**
-     * Displays a single user model.
+     * Displays a single resume model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -72,7 +73,7 @@ class ManageController extends Controller
     }
 
     /**
-     * Deletes an existing user model.
+     * Deletes an existing resume model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -86,15 +87,15 @@ class ManageController extends Controller
     }
 
     /**
-     * Finds the user model based on its primary key value.
+     * Finds the resume model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return user the loaded model
+     * @return resume the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = user::findOne($id)) !== null) {
+        if (($model = resume::findOne($id)) !== null) {
             return $model;
         }
 
