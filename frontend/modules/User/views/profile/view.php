@@ -89,7 +89,7 @@
                         <br>
                         <?php if($userPosts) :?>
                             <?php foreach ($userPosts as $item):?>
-                            <p><a href="<?php echo \yii\helpers\Url::to(['/resume/view/', 'id' => $item['id']])?>" class="user__resumes__item"><?php echo $item['title'] ?></a></p>
+                            <p><a href="<?php echo \yii\helpers\Url::to(['/resume/resume/view/', 'id' => $item['id']])?>" class="user__resumes__item"><?php echo $item['title'] ?></a></p>
                             <?php endforeach; ?>
                         <?php endif; ?>
                         <?php else: ?>
@@ -97,7 +97,7 @@
                         <br>
                         <?php if($userPosts) :?>
                             <?php foreach ($userPosts as $item):?>
-                                <p><a href="<?php echo \yii\helpers\Url::to(['/vacancy/view/', 'id' => $item['id']])?>" class="user__resumes__item"><?php echo $item['title'] ?></a></p>
+                                <p><a href="<?php echo \yii\helpers\Url::to(['/vacancy/vacancy/view/', 'id' => $item['id']])?>" class="user__resumes__item"><?php echo $item['title'] ?></a></p>
                             <?php endforeach; ?>
                         <?php endif; ?>
                     <?php endif; ?>

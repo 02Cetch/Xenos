@@ -7,7 +7,7 @@ $(document).ready(function () {
         };
         preloader.show();
 
-        $.post('/delete/delete-resume', params, function(data) {
+        $.post('/resume/resume/delete', params, function(data) {
             preloader.hide();
             button.addClass('disabled');
             button.html(data.text);

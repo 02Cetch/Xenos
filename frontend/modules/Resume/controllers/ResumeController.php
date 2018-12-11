@@ -9,6 +9,8 @@ use frontend\models\Resume;
 use frontend\models\User;
 use frontend\models\forms\SearchForm;
 use yii\data\ActiveDataProvider;
+use yii\helpers\Url;
+use yii\web\Response;
 
 class ResumeController extends \yii\web\Controller
 {
@@ -85,6 +87,47 @@ class ResumeController extends \yii\web\Controller
             'currentUser' => $currentUser,
             'notifications' => $notifications,
         ]);
+    }
+
+    /**
+     * @return string
+     *
+     * Delete resume action
+     */
+    public function actionDelete()
+    {
+
+        /* @var $currentUser User */
+        $currentUser = Yii::$app->user->identity;
+
+        if(Yii::$app->user->isGuest || $currentUser->isCompany()) {
+            return $this->goHome();
+        }
+
+        $model = new Resume();
+
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        // получаем id поста, на который пожаловались
+        // по методу post
+        $id = Yii::$app->request->post('id');
+
+        // находим вакансию
+        $resume = $model->getResumeById($id);
+
+        // на всякий случай, проверяем, является ли
+        // пользователь автором резюме
+        if($currentUser->getId() != $resume->user_id ) {
+            return $this->goHome();
+        }
+
+        if($resume->delete($resume)) {
+            return $this->redirect(Url::to(['/user/profile/view', 'id' => $currentUser->getId()]));
+        }
+        return [
+            'success' => false,
+            'text' => 'Error',
+        ];
     }
 
 

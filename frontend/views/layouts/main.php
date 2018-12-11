@@ -57,7 +57,7 @@ $user = Yii::$app->user->identity;
                                         $menuItems[] = ['label' => 'Login', 'url' => [Url::to(['/user/default/login'])],'options'=>['class'=>'navbar__list__item']];
                                     } else {
                                         $menuItems[] = ['label' => 'My page','options'=>['class'=>'navbar__list__item'], 'url' => [Url::to(['/user/profile/view/']), 'id' => Yii::$app->user->identity->getId()]];
-                                        $menuItems[] = ['label' => $user->isUser() ? 'Create Resume' : 'Create Vacancy' , 'url' => [$user->isUser() ? '/create-resume/index' : '/create-vacancy/index'],'options'=>['class'=>'navbar__list__item']];
+                                        $menuItems[] = ['label' => $user->isUser() ? 'Create Resume' : 'Create Vacancy' , 'url' => [$user->isUser() ? '/resume/create-resume' : '/vacancy/create-vacancy'],'options'=>['class'=>'navbar__list__item']];
 
                                         $menuItems[] = '<a href="/notifications/default" class="fa fa-bell">'
                                             . Html::beginTag('div', ['class' => 'notifications__count'])

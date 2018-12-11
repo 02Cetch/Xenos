@@ -46,7 +46,7 @@ $this->registerJsFile('@web/js/notification.js', [
                         <?php if($userData->description):?>
                             <br>
                             <p class="user__profile__container__descr">
-                                <?php echo $resume->description ?>
+                                <?php echo $userData->description ?>
                             </p>
                         <?php endif; ?>
 

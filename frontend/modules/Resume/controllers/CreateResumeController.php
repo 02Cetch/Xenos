@@ -32,7 +32,7 @@ class CreateResumeController extends \yii\web\Controller
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
                 if($model->save()) {
-                    return Yii::$app->response->redirect(Url::to(['user/profile/view', 'id' => $currentUser->getId()]));
+                    return Yii::$app->response->redirect(Url::to(['/user/profile/view', 'id' => $currentUser->getId()]));
                 }
             }
         }
