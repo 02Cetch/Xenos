@@ -11,9 +11,11 @@ use frontend\assets\AppAsset;
 use common\widgets\Alert;
 use yii\helpers\Url;
 use frontend\modules\notifications\models\Notifications;
-
+use yii\web\JqueryAsset;
 AppAsset::register($this);
 $user = Yii::$app->user->identity;
+
+
 
 ?>
 <?php $this->beginPage() ?>
@@ -47,8 +49,8 @@ $user = Yii::$app->user->identity;
                                 <?php
                                     $menuItems = [
                                         ['label' => 'Home', 'url' => ['/site/index'],'options'=>['class'=>'navbar__list__item']],
-                                        ['label' => 'Vacancy', 'url' => ['/vacancy/index'],'options'=>['class'=>'navbar__list__item']],
-                                        ['label' => 'Resume', 'url' => ['/resume/index'],'options'=>['class'=>'navbar__list__item']],
+                                        ['label' => 'Vacancy', 'url' => ['/vacancy/vacancy/index'],'options'=>['class'=>'navbar__list__item']],
+                                        ['label' => 'Resume', 'url' => ['/resume/resume/index'],'options'=>['class'=>'navbar__list__item']],
                                     ];
                                     if (Yii::$app->user->isGuest) {
                                         $menuItems[] = ['label' =>  'Signup', 'url' => [Url::to(['/user/default/signup'])],'options'=>['class'=>'navbar__list__item'] ];
@@ -86,7 +88,7 @@ $user = Yii::$app->user->identity;
                                     $menuItems = [
                                         ['label' => 'Home', 'url' => ['/site/index'],'options'=>['class'=>'navbar__list__item']],
                                         ['label' => 'Vacancy', 'url' => ['/vacancy/vacancy/index'],'options'=>['class'=>'navbar__list__item']],
-                                        ['label' => 'Resume', 'url' => [Url::to(['/resume/resume/index'])],'options'=>['class'=>'navbar__list__item']],
+                                        ['label' => 'Resume', 'url' => ['/resume/resume/index'],'options'=>['class'=>'navbar__list__item']],
                                     ];
                                     if (Yii::$app->user->isGuest) {
                                         $menuItems[] = ['label' =>  'Signup', 'url' => [Url::to(['/user/default/signup'])],'options'=>['class'=>'navbar__list__item'] ];
