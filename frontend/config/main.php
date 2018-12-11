@@ -51,18 +51,34 @@ return [
                 'user/login' => '/user/default/login',
                 'profile/edit' => 'user/profile/edit',
                 'profile/view/<id:\d+>' => 'user/profile/view',
-                'vacancy/view/<id:\d+>' => 'vacancy/view',
-                'vacancy/<page:\d+>' => 'vacancy/index',
-                'vacancy/' => 'post/index',
-                'resume/view/<id:\d+>' => 'resume/view',
-                'resume/<page:\d+>' => 'resume/index',
-                'resume/' => 'post/index',
+
+//                'vacancy/view/<id:\d+>' => 'vacancy/view',
+//                'vacancy/<page:\d+>' => 'vacancy/index',
+//                'vacancy/' => 'vacancy/index',
+
+                'vacancy/view/<id:\d+>' => 'vacancy/vacancy/view',
+                'vacancy/<page:\d+>' => 'vacancy/vacancy/index',
+                'vacancy/index' => 'vacancy/vacancy/index',
+
+//                'resume/view/<id:\d+>' => 'resume/view',
+//                'resume/<page:\d+>' => 'resume/index',
+//                'resume/' => 'vacancy/index',
+
+                'resume/view/<id:\d+>' => 'resume/resume/view',
+                'resume/<page:\d+>' => 'resume/resume/index',
+                'resume/index' => 'resume/resume/index',
             ],
         ],
     ],
     'modules' => [
         'user' => [
             'class' => 'frontend\modules\user\Module',
+        ],
+        'resume' => [
+            'class' => 'frontend\modules\Resume\Module',
+        ],
+        'vacancy' => [
+            'class' => 'frontend\modules\Vacancy\Module',
         ],
         'notifications' => [
             'class' => 'frontend\modules\notifications\Module',

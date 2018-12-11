@@ -1,31 +1,25 @@
 <?php
 
-namespace frontend\controllers;
+namespace frontend\modules\Vacancy\controllers;
 
-use frontend\models\forms\CreateResumeForm;
+use frontend\models\forms\CreateVacancyForm;
 
 use Yii;
-use yii\helpers\Url;
-
 /**
- * Class CreateResumeController
+ * Class CreateVacancyController
  * @package frontend\controllers
  *
- * Creating New Resume
+ * Creating new vacancy
  */
-class CreateResumeController extends \yii\web\Controller
+class CreateVacancyController extends \yii\web\Controller
 {
     public function actionIndex()
     {
-        $model = new CreateResumeForm();
+        $model = new CreateVacancyForm();
 
-
-        /* @var $currentUser frontend\models\User*/
         $currentUser = Yii::$app->user->identity;
 
-        // if user account = company
-        if($currentUser->isCompany()) {
-            // redirected
+        if($currentUser->isUser()) {
             $this->goHome();
         }
 

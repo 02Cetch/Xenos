@@ -1,27 +1,22 @@
 <?php
 
-namespace frontend\controllers;
+namespace frontend\modules\Vacancy\controllers;
 
-use frontend\modules\notifications\models\Notifications;
-use Yii;
-use yii\data\Pagination;
-use frontend\models\Resume;
-use frontend\models\User;
-use frontend\models\forms\SearchForm;
 use yii\data\ActiveDataProvider;
+use frontend\models\forms\SearchForm;
+use Yii;
+use frontend\models\User;
+use frontend\models\Vacancy;
+use yii\data\Pagination;
 
-class ResumeController extends \yii\web\Controller
+class VacancyController extends \yii\web\Controller
 {
-   /**
-    * @return string
-    *
-    *
-    * страница отображения всех резюме
-   */
+    /**
+     * @return string
+     */
     public function actionIndex()
     {
-
-        $resume = new Resume();
+        $vacancy = new Vacancy();
         $model = new SearchForm();
 
         $dataProvider = null;
@@ -29,21 +24,21 @@ class ResumeController extends \yii\web\Controller
         // подключаем пагинацию
         $pagination = new Pagination([
             'defaultPageSize' => 3,
-            'totalCount' => $resume->count(),
+            'totalCount' => $vacancy->count(),
             'forcePageParam' => false,
             'pageSizeParam' => false,
         ]);
 
         // по умолчанию - пока пользователь не воспользовался поиском
         // отображает последние резюме
-        $resumes = $resume->getResumes($pagination->offset, $pagination->limit);
+        $vacancies = $vacancy->getVacancies($pagination->offset, $pagination->limit);
 
 
         // если пользователь воспользовался поиском
         if($model->load(Yii::$app->request->post())) {
 
-            // получаем данные
-            $resumes = $model->resumeSearch();
+            // получаем данные, но уже без пагинации
+            $vacancies = $model->vacancySearch();
 
             // убираем пагинацию
             $pagination = null;
@@ -52,7 +47,7 @@ class ResumeController extends \yii\web\Controller
         return $this->render('index', [
             'pagination' => $pagination,
             'model' => $model,
-            'resumes' => $resumes,
+            'vacancies' => $vacancies,
             'keyword' => $model->getKeyword(),
         ]);
     }
@@ -61,31 +56,27 @@ class ResumeController extends \yii\web\Controller
      * @param $id
      * @return string
      *
-     * Просмотр резюме отдельно
+     * Просмотр вакансии отдельно
      */
     public function actionView($id)
     {
         $user = new User();
 
-        $resume = new Resume();
+        $vacancy = new Vacancy();
 
-        $resume = $resume->getVacancyById($id);
+        $vacancy = $vacancy->getVacancyById($id);
 
-        $userData = $resume->getUserData();
-
-        $notifications = new Notifications();
+        $userData = $vacancy->getUserData();
 
         /* @var $currentUser User*/
         $currentUser = Yii::$app->user->identity;
 
         return $this->render('view', [
-            'resume' => $resume,
+            'vacancy' => $vacancy,
             'userData' => $userData,
             'user' => $user,
             'currentUser' => $currentUser,
-            'notifications' => $notifications,
         ]);
     }
-
 
 }

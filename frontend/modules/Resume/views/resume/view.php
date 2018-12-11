@@ -15,6 +15,10 @@ AppAsset::register($this);
 $this->registerJsFile('@web/js/reports.js', [
     'depends' => JqueryAsset::className(),
 ]);
+$this->registerJsFile('@web/js/deletion.js', [
+    'depends' => JqueryAsset::className(),
+]);
+
 $this->registerJsFile('@web/js/notification.js', [
     'depends' => JqueryAsset::className(),
 ]);
