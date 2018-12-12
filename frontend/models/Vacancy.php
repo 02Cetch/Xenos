@@ -3,11 +3,12 @@
 namespace frontend\models;
 
 use Yii;
-
+use yii\web\NotFoundHttpException;
 /**
  * This is the model class for table "vacancy".
  *
  * @property int $id
+ * @property int $user_id
  * @property string $title
  * @property int $salary
  * @property string $responsibilities
@@ -38,15 +39,20 @@ class Vacancy extends \yii\db\ActiveRecord
             [['title'], 'string', 'max' => 255],
         ];
     }
+
     /**
      * @param $id
      * @return array|null|\yii\db\ActiveRecord
+     * @throws NotFoundHttpException
      *
-     * get vacancy by id
      */
     public function getVacancyById($id)
     {
-        return $this->find()->where(['id' => $id])->one();
+        $vacancy =  $this->find()->where(['id' => $id])->one();
+        if (!$vacancy){
+            throw new NotFoundHttpException('Vacancy Not Found');
+        }
+        return $vacancy;
     }
     /**
      * @param User $user

@@ -5,6 +5,7 @@ namespace frontend\models;
 use yii\helpers\ArrayHelper;
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\web\NotFoundHttpException;
 
 /**
  * This is the model class for table "resume".
@@ -38,15 +39,20 @@ class Resume extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
+
     /**
      * @param $id
      * @return array|null|\yii\db\ActiveRecord
+     * @throws NotFoundHttpException
      *
-     * get vacancy by id
      */
     public function getResumeById($id)
     {
-        return $this->find()->where(['id' => $id])->one();
+        $resume =  $this->find()->where(['id' => $id])->one();
+        if (!$resume){
+            throw new NotFoundHttpException('Resume not found');
+        }
+        return $resume;
     }
 
     /**
@@ -112,16 +118,6 @@ class Resume extends \yii\db\ActiveRecord
 
     public function count() {
         return $this->find()->count();
-    }
-    /**
-     * @param $id
-     * @return array|null|\yii\db\ActiveRecord
-     *
-     * get vacancy by id
-     */
-    public function getVacancyById($id)
-    {
-        return $this->find()->where(['id' => $id])->one();
     }
 
     function nl2br2($string) {

@@ -20,9 +20,10 @@ $(document).ready(function () {
         var params = {
             'id': $(this).attr('data-id')
         };
+
         preloader.show();
 
-        $.post('/delete/delete-vacancy', params, function(data) {
+        $.post('/vacancy/vacancy/delete', params, function(data) {
             preloader.hide();
             button.addClass('disabled');
             button.html(data.text);

@@ -13,7 +13,10 @@ AppAsset::register($this);
 $this->registerJsFile('@web/js/reports.js', [
     'depends' => JqueryAsset::className(),
 ]);
-$this->registerJsFile('@web/js/deletion.js');
+
+$this->registerJsFile('@web/js/deletion.js', [
+    'depends' => JqueryAsset::className(),
+]);
 
 $this->title = $vacancy->title . " | Xenos";
 ?>
@@ -45,7 +48,7 @@ $this->title = $vacancy->title . " | Xenos";
                                         <a href="WW#" class="vacancy__report button__to grey reverse disabled" data-id="<?php echo $vacancy->id ?>">Vacancy has been reported</a>
                                 <?php endif; ?>
                             <?php else: ?>
-                                <a href="#" class="vacancy__delete button__to red reverse" data-id="<?php echo $vacancy->id ?>">Delete</a>
+                                <a class="vacancy__delete button__to red reverse" href="#" data-id="<?php echo $vacancy->id ?>">Delete</a>
                             <?php endif; ?>
                         <?php endif;?>
                     <?php endif; ?>

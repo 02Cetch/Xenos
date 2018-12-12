@@ -71,7 +71,7 @@ class ResumeController extends \yii\web\Controller
 
         $resume = new Resume();
 
-        $resume = $resume->getVacancyById($id);
+        $resume = $resume->getResumeById($id);
 
         $userData = $resume->getUserData();
 
@@ -108,7 +108,7 @@ class ResumeController extends \yii\web\Controller
 
         Yii::$app->response->format = Response::FORMAT_JSON;
 
-        // получаем id поста, на который пожаловались
+        // получаем id поста, который должен быть удалён
         // по методу post
         $id = Yii::$app->request->post('id');
 
@@ -121,9 +121,10 @@ class ResumeController extends \yii\web\Controller
             return $this->goHome();
         }
 
-        if($resume->delete($resume)) {
+        if($resume->delete()) {
             return $this->redirect(Url::to(['/user/profile/view', 'id' => $currentUser->getId()]));
         }
+
         return [
             'success' => false,
             'text' => 'Error',

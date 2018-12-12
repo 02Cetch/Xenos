@@ -8,6 +8,8 @@ use Yii;
 use frontend\models\User;
 use frontend\models\Vacancy;
 use yii\data\Pagination;
+use yii\web\Response;
+use yii\helpers\Url;
 
 class VacancyController extends \yii\web\Controller
 {
@@ -77,6 +79,50 @@ class VacancyController extends \yii\web\Controller
             'user' => $user,
             'currentUser' => $currentUser,
         ]);
+    }
+
+    /**
+     * @return string
+     *
+     * Delete vacancy action
+     */
+    public function actionDelete()
+    {
+
+        /* @var $currentUser User */
+        $currentUser = Yii::$app->user->identity;
+
+        if(Yii::$app->user->isGuest || $currentUser->isUser()) {
+            return $this->goHome();
+        }
+
+        $model = new Vacancy();
+
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        // получаем id поста, который должен быть удалён
+        // по методу post
+        $id = Yii::$app->request->post('id');
+
+
+        // находим вакансию
+        $vacancy = $model->getVacancyById($id);
+
+        // на всякий случай, проверяем, является ли
+        // пользователь автором вакансии
+        if($currentUser->getId() != $vacancy->user_id ) {
+            return $this->goHome();
+        }
+
+        if($vacancy->delete()) {
+            return $this->redirect(Url::to(['/user/profile/view', 'id' => $currentUser->getId()]));
+        }
+        return $this->redirect(Url::to(['/user/profile/view', 'id' => $currentUser->getId()]));
+
+        return [
+            'success' => false,
+            'text' => 'Error',
+        ];
     }
 
 }
