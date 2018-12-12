@@ -72,14 +72,4 @@ class CreateController extends Controller
             'text' => 'Error',
         ];
     }
-
-
-    public function actionTypeUpdateUserData()
-    {
-        return 'kavo2';
-    }
-    public function actionTypeResetPassword()
-    {
-        return 'kavo3';
-    }
 }
