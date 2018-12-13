@@ -52,10 +52,12 @@ class Notifications extends \yii\db\ActiveRecord
     {
         return 'notifications';
     }
+
     public function getUser()
     {
         return $this->hasOne(User::class, ['id' => 'receiver_id']);
     }
+
     public function getResume()
     {
         return $this->hasOne(Resume::class, ['id' => 'resume_id']);
@@ -239,6 +241,39 @@ class Notifications extends \yii\db\ActiveRecord
             return true;
         }
         return false;
+    }
+
+    /**
+     *
+     * @return integer
+     *
+     * Возвращает тип уведомления LIKED_RESUME_BY_COMPANY
+     */
+    public static function getTypeLikedResumeByCompany()
+    {
+        return self::NOTIFICATION_TYPE_LIKED_RESUME_BY_COMPANY;
+    }
+
+    /**
+     *
+     * @return integer
+     *
+     * Возвращает тип уведомления UPDATE_USER_DATA
+     */
+    public static function getTypeUpdateUserData()
+    {
+        return self::NOTIFICATION_TYPE_UPDATE_USER_DATA;
+    }
+
+    /**
+     *
+     * @return integer
+     *
+     * Возвращает тип уведомления RESET_PASSWORD
+     */
+    public static function getTypeResetPassword()
+    {
+        return self::NOTIFICATION_TYPE_RESET_PASSWORD;
     }
 
     /**

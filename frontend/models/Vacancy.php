@@ -45,6 +45,7 @@ class Vacancy extends \yii\db\ActiveRecord
      * @return array|null|\yii\db\ActiveRecord
      * @throws NotFoundHttpException
      *
+     * get vacancy by id
      */
     public function getVacancyById($id)
     {
@@ -75,6 +76,13 @@ class Vacancy extends \yii\db\ActiveRecord
             return $this->save(false, ['reports']);
         }
     }
+
+    /**
+     * @param User $user
+     * @return mixed
+     *
+     * проверяет, зарепорчена ли вакансия
+     */
     public function isReported(User $user)
     {
         /* @var $redis Connection */
@@ -154,8 +162,11 @@ class Vacancy extends \yii\db\ActiveRecord
 
         return $string;
     }
+
     /**
-     * {@inheritdoc}
+     * @return integer
+     *
+     * returns id
      */
     public function getId()
     {

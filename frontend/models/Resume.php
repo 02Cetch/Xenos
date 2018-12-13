@@ -76,6 +76,13 @@ class Resume extends \yii\db\ActiveRecord
             return $this->save(false, ['reports']);
         }
     }
+
+    /**
+     * @param User $user
+     * @return mixed
+     *
+     * проверяет, жаловался ли пользователь на резюме
+     */
     public function isReported(User $user)
     {
         /* @var $redis Connection */
@@ -83,6 +90,7 @@ class Resume extends \yii\db\ActiveRecord
 
         return $redis->sismember("resume:{$this->id}:reports", $user->getId());
     }
+
     /**
      * @return array|null|\yii\db\ActiveRecord
      *
@@ -93,7 +101,6 @@ class Resume extends \yii\db\ActiveRecord
 
         return $data = User::find()->where(['id' => $this->user_id])->one();
     }
-
 
     /**
      * @param $currentUser
@@ -120,13 +127,14 @@ class Resume extends \yii\db\ActiveRecord
         return $this->find()->count();
     }
 
-    function nl2br2($string) {
+//    function nl2br2($string) {
+//
+//        return preg_replace('/\<br(\s*)?\/?\>/i', PHP_EOL, $string);
+////        return str_replace(["\r\n", "\r", "\n"], '<br/>', $string);
+//
+//        return $string;
+//    }
 
-        return preg_replace('/\<br(\s*)?\/?\>/i', PHP_EOL, $string);
-//        return str_replace(["\r\n", "\r", "\n"], '<br/>', $string);
-
-        return $string;
-    }
     /**
      * {@inheritdoc}
      */

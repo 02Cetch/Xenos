@@ -17,7 +17,7 @@
                                 <div class="pe pe-7s-volume"></div>
                             </div>
                             <div class="notification__item__text">
-                                <h3 class="notification__item__text__title">The company <a href="<?php echo Url::to(['/user/profile/view', 'id' => $model->getUserById($notification->sender_id)->id]); ?>"><?php echo $model->getUserById($notification->sender_id)->username; ?></a> liked your <a href="<?php echo Url::to(['/resume/view', 'id' => $notification->resume_id]); ?>">resume</a>.</h3>
+                                <h3 class="notification__item__text__title">The company <a href="<?php echo Url::to(['/user/profile/view', 'id' => $model->getUserById($notification->sender_id)->id]); ?>"><?php echo $model->getUserById($notification->sender_id)->username; ?></a> liked your <a href="<?php echo Url::to(['/resume/resume/view', 'id' => $notification->resume_id]); ?>">resume</a>.</h3>
                             </div>
                             <div class="date">
                                 <i class="pe pe-7s-clock"></i>

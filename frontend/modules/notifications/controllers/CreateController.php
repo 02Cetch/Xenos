@@ -22,23 +22,6 @@ class CreateController extends Controller
 {
 
     /**
-     * Типы уведомлений
-     *
-     * self::NOTIFICATION_TYPE_LIKED_RESUME_BY_COMPANY тип уведомлений,
-     * при котором пользователь оповещается об отклике на его резюме
-     *
-     * self::NOTIFICATION_TYPE_UPDATE_USER_DATA тип уведомлений,
-     * при котором пользователь оповещается о смене данных его аккаунта
-     *
-     * self::NOTIFICATION_TYPE_RESET_PASSWORD тип уведомлений,
-     * при котором пользователь оповещается о смене пароля
-     */
-    const NOTIFICATION_TYPE_LIKED_RESUME_BY_COMPANY = 1;
-    const NOTIFICATION_TYPE_UPDATE_USER_DATA = 2;
-    const NOTIFICATION_TYPE_RESET_PASSWORD = 3;
-
-
-    /**
      * @return string
      *
      * notifications/create/type-liked-resume-by-company
@@ -61,7 +44,7 @@ class CreateController extends Controller
         $resumeId = Yii::$app->request->post('resumeId');
         $receiverId = $user->getUserByResumeId($resumeId);
 
-        if($currentUser->isCompany() && $model->createNotification($senderId, $receiverId, $resumeId, $type = self::NOTIFICATION_TYPE_LIKED_RESUME_BY_COMPANY)) {
+        if($currentUser->isCompany() && $model->createNotification($senderId, $receiverId, $resumeId, $type = Notifications::getTypeLikedResumeByCompany())) {
             return [
                 'success' => true,
                 'text' => 'Success',

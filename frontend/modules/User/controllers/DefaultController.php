@@ -21,7 +21,6 @@ use frontend\modules\User\models\SignupForm;
  */
 class DefaultController extends Controller
 {
-    const NOTIFICATION_TYPE_RESET_PASSWORD = 3;
 
     /**
      * Renders the index view for the module
@@ -175,7 +174,7 @@ class DefaultController extends Controller
             Yii::$app->session->setFlash('success', 'New password saved.');
             $notifications = new Notifications();
 
-            $notifications->createNotification(null, $user->getId(), null, self::NOTIFICATION_TYPE_RESET_PASSWORD );
+            $notifications->createNotification(null, $user->getId(), null, $type = Notifications::getTypeResetPassword() );
 
             return $this->goHome();
         }

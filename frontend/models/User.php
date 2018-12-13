@@ -110,14 +110,34 @@ class User extends ActiveRecord implements IdentityInterface
             return $this->save(false, ['reports']);
         }
     }
+
+    /**
+     * @return int
+     *
+     * Returns user account type
+     *
+     */
     public static function returnUserAccountType()
     {
         return self::USER_ACCOUNT;
     }
+
+    /**
+     * @return int
+     *
+     * Returns company account type
+     */
     public static function returnCompanyAccountType()
     {
         return self::COMPANY_ACCOUNT;
     }
+
+    /**
+     * @param User $user
+     * @return mixed
+     *
+     * проверяет, жаловались ли уже на пользователя
+     */
     public function isReported(User $user)
     {
         /* @var $redis Connection */
@@ -126,6 +146,12 @@ class User extends ActiveRecord implements IdentityInterface
         return $redis->sismember("user:{$this->id}:reports", $user->getId());
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     *
+     * Getting user by resume id
+     */
     public function getUserByResumeId($id)
     {
         $resume = Resume::find()->where(['id' => $id])->one();
@@ -261,6 +287,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return $vacancies = Vacancy::find()->where(['user_id' => $id])->all();
     }
+
     /**
      * @return int|mixed|string
      *

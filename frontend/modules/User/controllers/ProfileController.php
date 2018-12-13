@@ -15,8 +15,6 @@ use frontend\modules\user\models\forms\PictureForm;
 
 class ProfileController extends Controller
 {
-    const NOTIFICATION_TYPE_UPDATE_USER_DATA = 2;
-
     /**
      * экшен, для показа страницы профиля пользователя
      *
@@ -77,7 +75,7 @@ class ProfileController extends Controller
             if ($model->validate()) {
                 if ($model->load(Yii::$app->request->post())) {
                     if($model->save()) {
-                        $notifications->createNotification(null, $currentUser->getId(), null, $type = self::NOTIFICATION_TYPE_UPDATE_USER_DATA);
+                        $notifications->createNotification(null, $currentUser->getId(), null, $type = Notifications::getTypeUpdateUserData());
                         Yii::$app->getSession()->setFlash('Success', 'Your account information updated');
                         $this->redirect('/profile/view/' . $currentUser->id);
                     }
