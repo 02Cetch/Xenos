@@ -37,7 +37,7 @@ The login information for this user is located in the migration file: "m181210_1
 <p>In the admin panel there is access to user complaints, where it can approve it or remove</p>
 <p>The admin user can give the role to another user</p>
     
-<h3>Console:</h3>
+<h2>Console:</h2>
 <p>The console has only one controller, which removes all notifications older than 30 days.</p>
 
 
@@ -62,6 +62,7 @@ backend
     config/              contains backend configurations
     controllers/         contains Web controller classes
     models/              contains backend-specific model classes
+    modules/             contains backend-specific modules
     runtime/             contains files generated during runtime
     tests/               contains tests for backend application    
     views/               contains view files for the Web application
@@ -71,6 +72,7 @@ frontend
     config/              contains frontend configurations
     controllers/         contains Web controller classes
     models/              contains frontend-specific model classes
+    modules/             contains frontend-specific modules
     runtime/             contains files generated during runtime
     tests/               contains tests for frontend application
     views/               contains view files for the Web application
