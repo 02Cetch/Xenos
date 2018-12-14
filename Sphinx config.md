@@ -61,9 +61,7 @@ index resume_index {
 (префикс в том числе)
   # enable_star   = 1          # Использовать оператор 
 
-усечения "*" (http://www.sphinxsearch.com/docs/manual-
-
-0.9.8.html#conf-enable-star)
+усечения "*" (http://www.sphinxsearch.com/docs/manual-0.9.8.html#conf-enable-star)
 }
 
 # Индекс вакансий
