@@ -13,7 +13,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 col-sm-6">
-                <div class="formHeading">Create Vacancy</div>
+                <div class="formHeading">Create Resume</div>
                     <?php $form = ActiveForm::begin(
                         ['options' => [
                     //                        'enableAjaxValidation' => true,
